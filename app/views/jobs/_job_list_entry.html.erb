@@ -1,0 +1,12 @@
+  <tr class="<%= cycle('even', 'odd')%>">
+  	<td><%= job_list_entry.id %></td>
+    <td><%= link_to job_list_entry.display_title, job_path(job_list_entry) %></td>
+  	<% @view[:columns].each do |c| %>
+  	<td><%= job_list_entry.column_data(c) %></td>
+  	<% end %>
+    <td><%= print_status(job_list_entry.status) %></td>
+    <td><%= job_list_entry.catalog_id %></td>
+    <% if params[:controller] != "projects" %>
+    <td><%= job_list_entry.project.name %></td>
+    <% end %>
+  </tr>

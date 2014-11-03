@@ -1,0 +1,3 @@
+Return path vid lösenordsbyte och ge operatörer möjlighet att byta sitt eget lösenord.
+
+Länk till lösenordsbyte lagt i layout.

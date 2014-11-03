@@ -1,0 +1,13 @@
+﻿catalog_id	name	guessed_page_count	note	comment	prio
+					
+					
+1234	Busen	195		Kommentar	
+1234	Busen	256	denna var jätteviktig därav kommentaren	Kommenterar igen	1
+1234	Busen	184			
+1234	Busen		En råtta eller något annat hungrigt djur har ätit på ryggen.	En ny kommentar	
+1234	Busen	844			
+1234	Busen				
+1234	Busen	321	Den här tunna foldern kan lätt ramla genom...		
+1234	Busen		En himla lunta som innehåller en massa lösblad. Iaktag försiktighet så att dessa inte ramlar ut och ned på det smutsiga golvet.		
+1234	Busen	132	Det fattas några sidor i denna. Vad göra?		
+1234	Busen	12	Påsknumret har en stor äggplansch som vecklas ut åt alla håll.		1

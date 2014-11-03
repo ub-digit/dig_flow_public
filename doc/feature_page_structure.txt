@@ -1,0 +1,9 @@
+feature_page_structure
+
+Organize the markup in the views to follow the dezired structure
+shown in the mockup pictures from Björn Odenbring.
+
+Also modifying css when appropriate.
+
+Modified the job detail page.
+

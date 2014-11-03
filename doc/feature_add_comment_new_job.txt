@@ -1,0 +1,5 @@
+feature_add_comment_new_job
+
+Add comment field in addition to object information when creating a new job.
+
+Added comment as text area to new job page. Text area CSS height was reduced from auto to 120px to fit both input fields.

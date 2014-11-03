@@ -1,0 +1,22 @@
+<h1 style="font-family: Sans-Serif;font-size:16px;"><%= t("mailalerts.header") %> </h1>
+
+<p style="font-family: Sans-Serif;"><%= t("mailalerts.restart.subject") %></p>
+<table style="font-family: Sans-Serif;" border="0" cellspacing="15">
+  <tr>
+    <td><%= t("jobs.job") + ": "%></td>
+    <td style="font-weight:bold;"><%= @job.id.to_s%> </td>
+    <td><%= @job.title %></td>
+  </tr>
+  <tr>
+    <td><%= t("jobs.note") %>:</td>
+    <td style="font-weight:bold;"><%= @note.to_s %></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><%= t("users.index.header") %>:</td>
+    <td style="font-weight:bold;"><%= @current_user.username %></td>
+    <td><%= @current_user.name %></td>
+  </tr>
+</table>
+
+<p style="font-family: Sans-Serif;font-style:italic"><%= t("mailalerts.footer") %> </p>

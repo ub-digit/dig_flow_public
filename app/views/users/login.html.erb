@@ -1,0 +1,15 @@
+<% content_for :title do %>
+<%= t("users.login.header") %>
+<% end %>
+
+<% if notice %>
+<h2><%= t(notice) %></h2>
+<% end %>
+<%= form_for :user, :url => authenticate_users_path do |f| %>
+ <%= f.label :username, t("users.username") %><br/>
+ <%= f.text_field :username %><br/>
+ <%= f.label :password, t("users.password") %><br/>
+ <%= f.password_field :password %><br/>
+ <%= hidden_field_tag :return_path, params[:return_path] %>
+ <%= submit_tag t("users.login.submit") %>
+<% end %>

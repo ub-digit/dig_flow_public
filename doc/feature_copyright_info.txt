@@ -1,0 +1,10 @@
+feature_copyright_info
+
+* Create a set of configurations for copyright in the /config/initializers/config.rb.
+* Place dropdown boxes into project and jobdetail views.
+* Populate the xml block for copyright info with data from
+  1. current job if it has copyright data set
+  2. current project if job has no copyright data set and the project has copyright data set
+  3. default value from config file if neither job nor project have copyright data set.
+
+

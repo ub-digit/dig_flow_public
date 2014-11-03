@@ -1,0 +1,581 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require bootstrap
+ *= require bootstrap-responsive
+ *= require users
+ *= require_self
+*/
+
+
+#summary {}
+#activity_log {display: none;}
+#metadata {}
+#clear {clear: both;}
+#xml {display: none;}
+#prioritized_jobs {display: none;}
+#xmlSeparator {margin-bottom: 5em;}
+#projectSeparator {margin-bottom: 2em;}
+#jobSeparator {margin-bottom: 3em;}
+#userSeparator {margin-bottom: 3em;}
+#job_new_status, #job_new_project, #job_new_copyright, .filter_selection {
+    font-size: 1.0em;
+    width: 15em;
+    color: #000000;
+}
+
+select#f_s {
+  width: 18em;
+}
+
+div.filter_group {
+  float: right;
+  /*margin-left: 9em;*/
+}
+select.filter_selection {
+  width: 150px;
+  color: #666666;
+}
+
+div #my_search {
+  clear: both;
+  height: 27px;
+}
+
+#edit_form, #catalog_request, #import_request, #users { position:absolute;
+                                                        top:12em;
+                                                        left:2em;
+}
+
+#search {
+  height: 1em;
+  margin-bottom:0px;
+  float:left;
+  /*margin-right:50px;*/
+  margin-top:1px;
+  padding-bottom:0px;
+  padding-top:0px;
+  height:20px;
+}
+
+.nav-pills > .active > a, .nav-pills > .active > a:hover, .nav-pills > .active > a:focus {
+    color: white;
+    background-color: #4E78A0;
+}
+
+
+html { height: 100%; width: 100%; 
+       overflow: -moz-scrollbars-vertical; }
+
+
+
+body{
+    font-family: verdana, arial;
+    font-size: 12px;
+    color: #666666;
+    background-color: #F5F5F5;
+    margin: 0px;
+    padding: 10px;
+}
+
+label {color: black;}
+.label-radio { display: inline-block; }
+
+textarea {
+    width: auto;height:120px;}
+
+select {margin-bottom: 0px;
+        height: 25px;}
+
+header{
+    margin-bottom: 1em;
+}
+
+nav{    
+    background-color: #000;
+    color: #fff;
+    padding: 1em;
+    border: #36648B 1px solid;
+    background-color: #4E78A0;
+    width: 98%;
+}
+
+logo{
+}
+
+.logo {text-align: center;
+       color: white;
+       font-size: 3em;}
+
+
+.nav_text {padding-right: 2em;
+           display: inline-block;
+}
+
+
+nav a {
+    color: #fff;
+}
+
+
+.digitize { 
+    font-size: 110%;
+    font-weight: bold;
+    margin-bottom: 1em;
+}
+
+.digitize a { color: red;
+              text-decoration: none;}
+
+
+
+
+.link_cancel{
+    padding: 1em;
+    background-color: #FA9A50;
+    max-width: 100px;
+    border: #36648B 1px solid;
+    background-color: #4E78A0;
+    text-align: center;
+}
+
+.link_cancel a{
+    text-decoration: none;
+    color: #FFF;
+}
+
+
+
+
+
+.job_details{
+    margin: auto;
+    margin-bottom: 2em;
+    border-collapse: collapse;
+    border: 1px solid #CCC;
+    padding: 0.5em;
+}
+
+.job_switcher{
+    margin-left: 50px;
+}
+
+.job_switcher_active{
+    font-size:70%;
+    font-weight:normal;
+    margin-right: 10px;
+}
+
+.job_switcher_inactive{
+    font-size:70%;
+    font-weight:normal;
+    color: #aaa;
+    margin-right: 10px;
+}
+
+.xml th{
+    border: none;
+}
+
+
+.edit_job{
+    margin: auto;
+    width: 600px;
+    border-collapse: collapse;
+    border: 1px solid #CCC;
+    padding: 0.5em;
+}
+
+.no_border{
+    border: none;
+}
+
+
+
+
+
+
+
+th{
+    text-align: left;
+}
+
+.le_table{ width: 100%;
+           margin-top: 2em;
+           margin-bottom: 2em;
+}
+
+a {
+    color: #666;
+}
+
+
+h1, h2{  font-size: 150%;
+
+         color: #4E78A0;
+         clear: both;
+}
+
+h1 a{
+    color: #4E78A0;
+
+}
+
+.text_right{
+    text-align: right;
+}
+
+
+
+.pagination {
+    text-align: left;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#toolbar_left { position:absolute;
+                top:12em;
+                left:2em;
+                width: 14em;
+                padding-left: 1em;
+                padding-right: 1.5em;
+                padding-top:1em;
+                padding-bottom:1em;
+                border: 1px solid #999999;
+                margin-right: 2em;
+                background-color: #fdfdfd;
+
+}
+
+#toolbar_item {margin-bottom: 0.5em;}
+#toolbar_label {color:black;}
+#toolbar_link {text-decoration: none; font-weight: normal; color: #000000;}
+#toolbar_select {margin-bottom: 0em;}
+
+
+#change_priority_link a, #print_link a, #delete_link a, #quarantine_link a, 
+#unquarantine_link a, #quality_control a, #show_activity a, #show_xml a,
+#project_edit_link a, #project_singlejob_link a, #project_batchjob_link a, #project_delete_link a, #digitize a {text-decoration: none; font-weight: normal; color: #000000;}
+
+
+#quarantine, #delete, #print,  #change_project, #change_copyright, #change_priority, 
+#quality_control, #change_status,#show_activity , #show_xml, #project_owner, #project_copyright, #project_edit, #project_user_id,
+#project_singlejob, #project_batchjob, #project_note, #project_new, #prioritized_jobs, #project_delete, #digitize , #user_role_id {margin-bottom: 0.5em;}
+
+
+.btn {font-size: 100%; line-height: 10px;}
+
+
+.btn:hover,
+.btn:focus
+{
+    color: #333333;
+/*    background-color: aquamarine;
+    *background-color: aquamarine;*/
+}
+
+.odd:hover, .even:hover {  background-color: #fdfdfd;}
+
+
+select:hover {  
+    background-color: lightgrey;
+}
+
+select option {
+    background-color: white;
+}
+
+.digitize_btn {
+    background: aquamarine;
+}
+
+
+
+#data { position:absolute;
+        top:12em;
+        left:20em;
+        width: 70%;
+        background-color: #e5e5e5;
+        padding-left: 2em;
+        padding-top: 0em;
+        padding-right: 0.5em;
+        padding-bottom: 2em;
+        border: 1px solid #999999}
+
+
+
+
+
+
+
+.odd{
+    background-color:#E5E5E5;
+    padding: 0px;
+    margin: 0px;
+}
+
+.even{
+    background-color:#EDEDED;
+    padding: 0px;
+    margin: 0px;
+}
+
+
+
+
+
+
+.underlined {
+    border-bottom: 1px solid #999999;
+}
+
+.green {
+    color: green;
+}
+
+.red {
+    color: #FF2400;
+}
+
+.huge_size{
+    font-size: 2em;
+}
+
+.bigger_size{
+    font-size: 1.2em;
+}
+
+p.no_margin{
+    margin: 0px;
+    padding: 0px;
+}
+
+li.rborder{
+    border-right: 1px solid #999;
+}
+
+li.lborder{
+    border-left: 1px solid #999;
+}
+
+table{
+    width: 90%;
+    padding: 0px;
+    margin: 0px;
+    border-spacing:0;
+    border-collapse:collapse;
+}
+
+
+
+tr{
+    color: #333;
+    margin: 0px;
+    padding: 0px;
+}
+
+th {
+    border-bottom: 1px solid #999;
+    color: #666;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+td{     padding-right: 0.5em;
+        margin: 0px;
+
+
+}
+.error {color: red; font-weight: normal;}
+
+.placeholder { font-style: italic; color: #999; }
+
+span.prioritized_job  {
+    font-size: 1em;
+    color: #FF0000;
+}
+
+.progress {
+    width: 8em;
+    margin: 0.2em;
+}
+
+.progress div {
+    float: left;
+}
+
+.progress_big div {
+    float: right;
+}
+
+.progress_not_started {
+    background-color: red;
+}
+
+.progress_started {
+    background-color: yellow;
+}
+
+.progress_done {
+    background-color: green;
+}
+
+.progress_mets {
+    background-color: blue;
+}
+
+.progress_big {
+    width: 16em;
+    margin-top: 0.5em;
+}
+
+.empty {    
+    border: 1px solid black;}
+
+form  {margin-bottom: 0px;}
+
+.editable_form {
+    width: 25em
+
+
+
+}
+
+.editable_form_name {
+
+}
+
+.editable_form .form{
+    display: none;
+}
+
+.editable_form_name .form{
+    display: none;
+}
+
+
+.editable_save {
+    display: none;
+}
+
+a.toggleLink_xml, a.toggleLink_activity_log, a.toggleLink_prioritized_jobs {font-weight: normal; margin-bottom: 0.5em;}
+
+
+.digg_pagination {
+    cursor: default;
+    /* self-clearing method: */ }
+.digg_pagination a, .digg_pagination span, .digg_pagination em {
+    padding: 0.2em 0.5em;
+    display: block;
+    float: left;
+    margin-right: 1px;
+    background:white;}
+.digg_pagination .disabled {
+    color: #999999;
+    border: 1px solid #dddddd; }
+.digg_pagination .current {
+    font-style: normal;
+    font-weight: bold;
+    background: #2e6ab1;
+    color: white;
+    border: 1px solid #2e6ab1; }
+.digg_pagination a {
+    text-decoration: none;
+    color: #105cb6;
+    border: 1px solid #9aafe5; }
+.digg_pagination a:hover, .digg_pagination a:focus {
+    color: #000033;
+    border-color: #000033; }
+.digg_pagination .page_info {
+    color: #333;
+    padding: 0.4em 0.6em;
+    width: auto;
+    margin-bottom: 0.3em;
+    text-align: center;
+    float:right;}
+.digg_pagination .page_info b {
+    color: #000033;
+    padding: 0.1em 0.25em; }
+.digg_pagination:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden; }
+* html .digg_pagination {
+    height: 1%; }
+*:first-child + html .digg_pagination {
+    overflow: hidden; }
+.digg_pagination select {
+    width:auto;
+}
+
+.digg_pagination select{
+    margin-top:1px;
+    padding-top:2px;
+}
+
+.fixed_table{
+    border: 1px solid black;
+    table-layout: fixed;
+    width: 90%;
+}
+
+.fixed_table th, .fixed_table td {
+    border: 1px solid black;
+    overflow: hidden;
+    width: 50px;
+    padding:2px;
+}
+
+.titles, .totals{
+    font-weight:bold;
+}
+
+
+.copyright_radio input[type="radio"] {
+    display:none;
+}
+
+.copyright_radio label {
+    display:inline-block;
+    background-color:#eee;
+    padding:4px 11px;
+    font-family:Arial;
+    font-size:16px;
+    vertical-align: middle;
+    color:#000;
+    border: 1px dashed #bbb;
+}
+
+.copyright_radio input[type="radio"]:checked + label {
+    background-color:#ddd;
+    color:#000;
+    border:1px solid black;
+}
+
+.quarantined_text {
+  color:red;
+  font-size:24px;
+  font-weight:bold;
+  padding-top:10px;
+}

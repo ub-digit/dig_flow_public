@@ -1,0 +1,7 @@
+feature_copyright_info_in_batch_import
+
+We should have the possibility to set custom copyright info
+for the bunch of jobs created in a batch import.
+
+Also fixed an issue with the edit form when copyright info was an empty string parameter.
+

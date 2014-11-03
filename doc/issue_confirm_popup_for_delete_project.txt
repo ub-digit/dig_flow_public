@@ -1,0 +1,7 @@
+issue_confirm_popup_for_delete_project
+
+Adding missing popup for delete link for projects.
+Also made sure the link be visible only for admin.
+
+Johan.Andersson.von.Geijer@ub.gu.se
+

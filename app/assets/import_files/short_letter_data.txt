@@ -1,0 +1,5 @@
+catalog_id	note	comment	prio
+			
+			
+339	Notering		1
+340	Objektinformationen objektinformation	Kommentaren kommentar	

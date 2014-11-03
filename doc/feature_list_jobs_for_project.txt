@@ -1,0 +1,3 @@
+Visa lista med jobb inom ett projekt på projektvysidan.
+
+Klart.

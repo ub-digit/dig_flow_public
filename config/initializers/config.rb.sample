@@ -1,0 +1,157 @@
+# -*- coding: utf-8 -*-
+DigFlow::Application.config.api_key = "<Your-API-key-here>"
+
+DigFlow::Application.config.copyright = {nil => {:name => 'may_not_publish', :type=>'default', :copyright_status => 'copyrighted', :publication_status => 'unpublished'},
+                                         1 => {:name => 'may_not_publish', :type=>'custom', :copyright_status => 'copyrighted', :publication_status => 'unpublished'},
+                                         2 => {:name => 'may_publish', :type=>'custom', :copyright_status => 'pd', :publication_status => 'unpublished'}}
+
+DigFlow::Application.config.mets_head = {
+  :creator => {:sigel => 'Gdig', :name => 'GUB, Göteborgs universitetsbibliotek, Digitala tjänster'},
+  :archivist => {:sigel => 'U', :name => 'UUB, Uppsala universitetsbibliotek'}
+}
+
+DigFlow::Application.config.mets_pagetypes = {
+  :physical => {
+    1 => "LeftPage",
+    2 => "RightPage",
+    4 => "BookCover",
+    8 => "Foldout",
+    128 => "BookSpine",
+    512 => "ColorTarget",
+    1024 => "LoosePage",
+    16 => "DoublePage"
+  },
+  :logical => {
+    1 => "Index",
+    2 => "Illustration",
+    4 => "TitlePage",
+    16 => "TableOfContents",
+    32 => "EmptyPage"
+  }
+}
+
+DigFlow::Application.config.text = {
+  :truncate => 100
+    }
+
+DigFlow::Application.config.project_jobgroups = [
+  {
+    :name => "created",
+    :statuses => [
+      'create_begin',
+      'create_end',
+      'waiting_for_digitizing_begin'
+    ]
+  },
+  {
+    :name => "digitizing",
+    :statuses => [
+      'waiting_for_digitizing_end',
+      'digitizing_begin'
+    ]
+  },
+  {
+    :name => "post_processing",
+    :statuses => [
+      'digitizing_end',
+      'waiting_for_post_processing_begin',
+      'waiting_for_post_processing_end',
+      'post_processing_begin',
+      'post_processing_user_input_begin',
+      'post_processing_user_input_end',
+      'post_processing_end'
+    ]
+  },
+  {
+    :name => "quality_control",
+    :statuses => [
+      'waiting_for_quality_control_begin',
+      'waiting_for_quality_control_end',
+      'quality_control_begin',
+      'quality_control_end',
+      'waiting_for_mets_control_begin',
+      'waiting_for_mets_control_end',
+      'mets_control_begin',
+      'mets_control_end',
+      'mets_production_begin',
+      'mets_production_end'
+    ]
+  },
+  {
+    :name => "done",
+    :statuses => [
+      'done'
+    ]
+  }
+]
+
+#Defines to which status a set of statuses should be set to (if any) when moved from quarantine
+DigFlow::Application.config.unquarantine_status_routes = {
+  'waiting_for_mets_control_end' => 'waiting_for_mets_control_begin',
+  'mets_control_begin' => 'waiting_for_mets_control_begin',
+  'mets_control_end' => 'waiting_for_mets_control_begin',
+  'mets_production_begin' => 'waiting_for_mets_control_begin',
+  'mets_production_end' => 'waiting_for_mets_control_begin',
+  'digitizing_begin' => 'waiting_for_digitizing_begin',
+  'digitizing_end' => 'waiting_for_digitizing_begin'
+}
+
+DigFlow::Application.config.mets_filegroups =
+  [{
+        :name => "master",
+        :mimetype => "image/tiff",
+        :extension => "tif"
+      },
+      {
+        :name => "web",
+        :mimetype => "image/jpeg",
+        :extension => "jpg"
+      },
+      {
+        :name => "alto",
+        :mimetype => "text/xml",
+        :extension => "xml"
+      },
+      {
+        :name => "pdf",
+        :mimetype => "text/pdf",
+        :extension => "pdf",
+        :single => true,
+      }]
+      
+DigFlow::Application.config.filter_views = [
+  {
+    :name => "monographs",
+    :filters => {
+      :source_id => [1],
+      :deleted_at => nil
+    },
+    :columns => [
+      'author',
+      'user_id'
+    ]
+  },
+  {
+    :name => "manuscripts",
+    :filters => {
+      :source_id => [2,3],
+      :deleted_at => nil
+    },
+    :columns => [
+      'archive',
+      'location',
+      'user_id'
+    ]
+  }
+]
+
+DigFlow::Application.config.base_scan_directory = "path/to/scanned/jobs"
+DigFlow::Application.config.base_store_directory = "path/to/mets/storage"
+
+DigFlow::Application.config.action_mailer.delivery_method = :smtp
+DigFlow::Application.config.action_mailer.smtp_settings = {
+  :address => "smtp.gu.se",
+  :port => 25,
+}
+DigFlow::Application.config.action_mailer.perform_deliveries = true
+DigFlow::Application.config.action_mailer.raise_delivery_errors = true

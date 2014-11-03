@@ -1,0 +1,6 @@
+feature_creator_of_job_is_initial_owner
+
+Let the created_by be set on creaton of a job and let the creator be the initial owner of the job.
+This was obtained by tweaking the link at the project page.
+
+Johan.Andersson.von.Geijer@ub.gu.se

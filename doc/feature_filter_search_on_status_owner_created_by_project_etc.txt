@@ -1,0 +1,14 @@
+feature_filter_search_on_status_owner_created_by_project_etc
+
+Cut out from the task post-it:
+--- 8<---
+Jobblista
+Filerpå befintlig sökn.
+(Status, ägare, skapare, projekt)
+
+Ny sökning rensar filter.
+--- 8< ---
+
+Finns nu på Jobblistan.
+Johan.Andersson.von.Geijer@ub.gu.se
+

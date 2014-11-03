@@ -1,0 +1,26 @@
+<h1><%= t("statistics.jobs.header") %></h1>
+<table class="fixed_table">
+  <col span="1" width="150" />
+  <tr>
+    <th style="width:50px;overflow: hidden;">Statusar</th>
+    <th><%= t("statistics.jobs.total") %></th>
+
+    <% @projects_jobgroups.keys.each do |p| %>
+      <th>
+        <%= p %>
+      </th>
+    <% end %>
+  </tr>
+  <% @jobgroups.each do |x| %>
+    <tr>
+      <td class="titles"><%= t("jobs." + x.to_s) %></td>
+      <td class="totals"><%= @jobgroup_job_count[x] %></td>
+      <% @projects_jobgroups.keys.each do |p| %>
+
+        <td><%= @projects_jobgroups[p][x] %> </td>
+
+      <% end %>
+    </tr>
+
+  <% end %>
+</table>

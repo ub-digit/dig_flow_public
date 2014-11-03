@@ -1,0 +1,24 @@
+﻿catalog_id	note	comment	prio
+			
+			
+339	Notering		1
+340	Objektinformationen objektinformation	Kommentaren kommentar	
+341			
+342		Just detta brev vill vi prioritera för att det var särdeles viktigt för Orvar...	1
+343	Tuggummit som sitter fastkletat hör till originalet och har tuggats av självaste gamle Evert själv. Låt sitta kvar!		
+344			
+345			
+346	Bläcket har bleknat ordentligt. Man skulle kunna tro att Evert använt osynligt bläck.		
+347			
+348		Denna är viktig och är prioriterad	1
+349			
+350		Kommentar	
+351	denna var jätteviktig därav kommentaren	Kommenterar igen	1
+352			
+353	En råtta eller något annat hungrigt djur har ätit en del av brevet.	Jag har impregnerat pappret med råttgift så kanske det klarar sig. Råttor älskar denna papperstyp (1400-tals semipapyrus från Nürnberg) /Jalle	
+354			
+355		
+356	Det här lövtunna brevpappret kan lätt ramla smulas sönder.		
+357	En himla lunta som innehåller en massa lösblad. Iaktag försiktighet så att dessa inte ramlar ut och ned på det smutsiga golvet.		
+358		Det fattas några sidor i denna. Vad göra?	
+359	Brevpappret är i A1-format och vikt enligt japanska Kashyoo-principen till en pytteliten körsbärsblomma. Ursprungligen doftade även denna av parfym, men lite av doften	har överlevt vistelsen i magasinet.		1

@@ -1,0 +1,110 @@
+<!-- <pre>
+<%= @job.errors.inspect %>
+</pre> -->
+
+<%= form_for @job do |f| %>
+
+    <%= t("users.user") %>: <%= @job.user.name %><br/>
+
+    <%= t("jobs.project") %>: <%= @job.project.name %><br/><br/>
+
+    <%= t("jobs.title") %>: <%= @job.title %><br/>
+
+    <%= t("jobs.author") %>: <%= @job.author %><br/>
+
+    <%= t("jobs.catalog_id") %>: <%= @job.catalog_id %><br/><br/>
+    
+    <% if @metadata["type_of_record"].first[1] == 'tm' %>
+	    <%= t("jobs.archive") %>: <%= @metadata["archive"].first[1] %><br/>
+	
+	    <%= t("jobs.location") %>: <%= @metadata["location"].first[1] %><br/>
+	    
+	    <%= t("jobs.scope") %>: <%= @metadata["scope"].first[1] %><br/><br/>
+
+    <% end %>
+
+  <table>
+    <col span="1" width="150px" style="text-align: right"/>
+    <tr>
+      <td valign="top"><%= t("jobs.name") + ":" %></td>
+      <td><%= f.text_field :name, placeholder: t("jobs.name_desc"), style: "width:500px;" %></td>
+    </tr>
+	<% if !@job.source_object.copyright_from_source? %>
+    <tr>
+      <td valign="top"><%= t("jobs.copyright") + ":" %></td>
+      <td><div class="copyright_radio">
+          <% @copyrights.each do |copyright| %>
+            <%= f.radio_button :copyright, copyright[1] %> <%= f.label copyright[1] != nil ? "copyright_#{copyright[1]}" : "copyright", copyright[0] %>
+          <% end %>
+        </div></td>
+    </tr>
+    <% end %>
+
+  <% if @job.metadata.last[1] == 'as' %>
+    <tr><td valign="top"><%= t("jobs.serial_metadata") + ":" %></td><td>
+      <table border="0">
+        <% [1,2,3].each do |i| %>
+          <% if i == 1 %>
+            <tr><td colspan="2" > <%= f.label :job_metadata_ord_key,t("jobs.ordinals") %></td></tr>
+            <tr><td><%= t("jobs.key") + ":" %></td><td><%= t("jobs.value") + ":" %></td></tr>
+          <% end %>
+         <tr><td width="20px"> <%= text_field_tag('job_metadata_ord_key[]') %></td>
+             <td><%= text_field_tag('job_metadata_ord_value[]') %></td>
+         </tr>
+      <% end %>
+
+      <% [1,2,3].each do |i| %>
+        <% if i == 1 %>
+          <tr><td colspan="2"><%= f.label :job_metadata_chron_key,t("jobs.chronologicals") %></td></tr>
+          <tr><td><%= t("jobs.key") + ":" %></td><td><%= t("jobs.value") + ":" %></td></tr>
+        <% end %>
+        <tr><td><%= text_field_tag('job_metadata_chron_key[]') %></td>
+            <td><%= text_field_tag('job_metadata_chron_value[]') %></td>
+        </tr>
+      <% end %>
+    </table>
+  </td></tr>
+
+<% end %>
+    <tr>
+      <td valign="top"><%= t("jobs.object_info") + ":" %></td>
+      <td><%= f.text_area :object_info, placeholder: t("jobs.object_info_desc") %></td>
+    </tr>
+
+    <tr>
+      <td valign="top"><%= t("jobs.note") + ":" %></td>
+      <td><%= f.text_area :comment, placeholder: t("jobs.note_desc") %></td>
+    </tr>
+
+    <tr>
+      <td valign="top"><%= t("jobs.guessed_page_count") + ":" %></td>
+      <td><%= f.number_field :guessed_page_count, style: "width:100px;" %></td>
+    </tr>
+
+    <tr>
+      <td></td>
+      <td><%= f.check_box :priority, :value => @job.priority %>
+        <%= f.label :priority, t("jobs.priority_job"), style: "display:inline;vertical-align:middle;padding-left:5px;"%></td>
+      
+    </tr>
+  </table>
+    <br/>
+
+  <% if @new_job %>
+    <%= f.hidden_field :user_id %>
+    <%= f.hidden_field :project_id %>
+    <%= f.hidden_field :status_id %>
+    <%= f.hidden_field :source_id %>
+    <%= f.hidden_field :metadata, :value => @job.metadata.to_yaml %>
+  <% end %>
+    <%= f.hidden_field :title %>
+    <%= f.hidden_field :author %>
+    <%= f.hidden_field :catalog_id %>
+  <%= f.hidden_field :xml %>
+  <%= f.hidden_field :mods %>
+  <%= submit_tag t("common.form.submit") %>
+<% end %>
+
+
+
+

@@ -1,0 +1,3 @@
+Sätt aktuellt språk från browserns språkinställning.
+
+Fixat i application_controller#setup

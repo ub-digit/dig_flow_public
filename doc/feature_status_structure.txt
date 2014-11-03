@@ -1,0 +1,3 @@
+Lägg till kolumner för sortering, visning och förloppsindikator i status-tabellen.
+
+show, sort_value och progress_state tillagda och uppdaterade med aktuell information.

@@ -1,0 +1,3 @@
+Sök efter librisid utöver alla andra saker vid fritextsökning. Bara exakt nummer.
+
+Fixat i Job.search()

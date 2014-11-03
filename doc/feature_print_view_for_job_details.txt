@@ -1,0 +1,7 @@
+feature_print_view_for_job_details
+
+Create a separate print view page with a selection of job properties.
+
+Also put the css in a separate file.
+The print page is not using the common styles at all.
+

@@ -1,0 +1,66 @@
+<% content_for :title do %>
+
+  <ul class="breadcrumb">
+    <li class="active"> <%= t("users.index.header") %>  </li>
+  </ul>
+<% end %>
+
+
+
+
+<div id="toolbar_left">
+
+  <%= link_to "#{t("users.new.create")}", new_user_path, :title => t("users.new.create"), :class => [:btn, "btn-block"]%>
+
+
+  <div>&nbsp;</div>
+</div>
+
+<div id="data">
+  <table class="le_table">
+    <tr class="le_table_header">
+      <th><%= t("users.username") %></th>
+      <th><%= t("users.name") %></th>
+      <th><%= t("users.email") %></th>
+      <th><%= t("users.role") %></th>
+    </tr>
+    <% for user in @users %>
+      <tr class="<%= cycle('odd', 'even')%>">
+        <td><%= user.username %></td>
+        <td><%= link_to user.name, user_path(user)  %></td>
+        <td><%= user.email %></td>
+        <td><%= user.role.name %></td>
+        <% if @kommentar %>
+          <td><%= link_to t("common.edit"), edit_user_path(user) %></td>
+          <td><%= link_to t("users.change_password.change_password"),
+              change_password_users_path(:id => user.id, :return_path => request.fullpath) %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+
+  <h1><%= t("users.deleted")%> </h1>
+  <table class="le_table">
+    <tr class="le_table_header">
+      <th><%= t("users.username") %></th>
+      <th><%= t("users.name") %></th>
+      <th><%= t("users.email") %></th>
+      <th><%= t("users.role") %></th>
+    </tr>
+    <% for user in @users_deleted %>
+      <tr class="<%= cycle('odd', 'even')%>">
+        <td><%= user.username %></td>
+        <td><%= link_to user.name, user_path(user)  %></td>
+        <td><%= user.email %></td>
+        <td><%= user.role.name %></td>
+        <% if @kommentar %>
+          <td><%= link_to t("common.edit"), edit_user_path(user) %></td>
+          <td><%= link_to t("users.change_password.change_password"),
+              change_password_users_path(:id => user.id, :return_path => request.fullpath) %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+
+</div>
+

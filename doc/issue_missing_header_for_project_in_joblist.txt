@@ -1,0 +1,6 @@
+issue_missing_header_for_project_in_joblist
+
+There was no <th> element for the Project in the Jobs list.
+Now it is fixed.
+
+Johan.Andersson.von.Geijer@ub.gu.se

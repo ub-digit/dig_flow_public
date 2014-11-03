@@ -1,0 +1,44 @@
+<%= hidden_field_tag :reverse, params[:reverse] %>
+<%= hidden_field_tag :sort_column, params[:sort_column] %>
+<%= hidden_field_tag :user_id, params[:user_id] %>
+<%= hidden_field_tag :project_id, params[:project_id] %>
+<%= hidden_field_tag :status_id, params[:status_id] %>
+<%= hidden_field_tag :quarantined, params[:quarantined] %>
+<div class="digg_pagination">
+	<%= will_paginate @jobs, :container => false %>
+	<div class="page_info">
+		<%= page_entries_info @jobs %>
+	</div>
+
+	<span style="margin-top: 1px;background-color: inherit"><%= t("will_paginate.per_page_label") + ": " %></span><%= select_tag :per_page, options_for_select([25,50,100,200,1000], @per_page.to_i),
+	:onchange => "if(this.value){window.location='?per_page='+this.value;}" %>
+</div>
+<% if !@jobs.blank? %>
+<table class="le_table">
+	<tr class="le_table_header">
+		<th><%= link_to t("jobs.id"), params.merge({:sort_column => :id, :reverse => !params[:reverse]}) %></th>
+		<th><%= link_to t("jobs.title"), params.merge({:sort_column => :title, :reverse => !params[:reverse]}) %></th>
+		<% @view[:columns].each do |c| %>
+		  <% if column_is_metadata?(c) %>
+		    <th><%= t("jobs." + c) %></th>
+		  <% else %>
+		    <th><%= link_to t("jobs." + c), params.merge({:sort_column => c, :reverse => !params[:reverse]}) %></th>
+                  <% end %>
+		<% end %>
+		<th><%= link_to t("jobs.status"), params.merge({:sort_column => :status_id, :reverse => !params[:reverse]}) %></th>
+		<th><%= link_to t("jobs.catalog_id"), params.merge({:sort_column => :catalog_id, :reverse => !params[:reverse]}) %></th>
+		<% if params[:controller] != "projects" %>
+		<th><%= link_to t("jobs.project"), params.merge({:sort_column => :project_id, :reverse => !params[:reverse]}) %></th>
+		<% end %>
+	</tr>
+	<%= form_for "quality_control", :url => batch_quality_control_jobs_path do |form| %>
+	<% for job in @jobs %>
+	<%= render :partial => "jobs/job_list_entry", :object => job, :locals => { :form => form } %>
+	<% end %>
+	<% end %>
+</table>
+<% else %>
+<p class="error">
+	<%= t("jobs.errors.no_hits_found") %>
+</p>
+<% end %>

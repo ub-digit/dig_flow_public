@@ -1,0 +1,7 @@
+feature_adding_structural_elements
+
+Adds html5 structural elements to page layout.
+
+Minor tweakings of css.
+Also fixed that author information be invisible in jobs show view, if no author data is available.
+

@@ -1,0 +1,41 @@
+<% content_for :title do %>
+  <%= link_to t("projects.show.header"), projects_path %>: <%= link_to @project.name, project_path(@project.id) %>: <%= t("jobs.batch_fetch.header") %>
+<% end %>
+
+<%= @jobs.count %> <%= t("jobs.batch.jobs_to_be_imported_into") %> <%= @project.name %>
+<%= form_for :job, :url => batch_import_jobs_path do |f| %>
+  <% for param in params[:job].keys %>
+    <%= f.hidden_field param, :value => params[:job][param] %>
+  <% end %>
+  <table border="1">
+    <tr>
+      <th><%= t("jobs.failed") %></th>
+      <th><%= t("jobs.catalog_id") %></th>
+      <th><%= t("jobs.title") %></th>
+      <th><%= t("jobs.author") %></th>
+      <th><%= t("jobs.name") %></th>
+      <th><%= t("jobs.prioritized.label") %></th>
+      <th><%= t("jobs.object_info") %></th>
+      <% (@column_names-["catalog_id", "name", "prio", "note", nil, ""]).each do |metadata_key| %>
+      <th><%= t("job_metadata."+metadata_key) %></th>
+      <% end %>
+    </tr>
+    <% for job in @jobs %>
+    <tr>
+      <td><%= job.failed %></td>
+      <td><%= job.catalog_id %></td>
+      <td><%= job.title %></td>
+      <td><%= job.author %></td>
+      <td><%= job.name %></td>
+      <td><%= job.priority %></td>
+      <td><%= job.object_info %></td>
+      <% (@column_names-["catalog_id", "name", "prio", "note", nil, ""]).each do |metadata_key| %>
+      <td><%= job.metadata.select {|x| x[0] == metadata_key}.first[1] %></td>
+      <% end %>
+    </tr>
+    <% end %>
+  </table>
+  <%= f.hidden_field :all_jobs, :value => @jobs.to_yaml %>
+  <%= f.select :new_copyright, @copyrights, :selected => "" %><br/>
+  <%= submit_tag t("jobs.form.batch_import") %>
+<% end %>

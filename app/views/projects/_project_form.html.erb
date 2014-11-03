@@ -1,0 +1,14 @@
+
+
+<%= form_for @project do |f| %>
+  <%= f.label :user_id, t("projects.owner") %>
+  <%= f.select :user_id, User.admins.map {|x| [x.name, x.id]}, :selected => @current_user.id %>
+  <%= f.label :name, t("projects.name") %>
+  <%= f.text_field :name %><br />
+  <%= f.label :copyright, t("projects.copyright") %>
+  <%= f.select :copyright, @copyrights, :selected => @project.copyright_value %>
+  <%= f.label :note, t("projects.note") %>
+  <%= f.text_area :note , :cols => 60, :rows => 10%><br />
+  <%= submit_tag t("common.form.submit") %>
+<% end %>
+

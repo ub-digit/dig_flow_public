@@ -1,0 +1,5 @@
+Ladda upp tabbseparerard fil med libris_id (catalog_id) som första fält.
+För varje rad skall jobbdata hämtas från libris.
+
+Uppladdning via projektlista från fil. Endast kolumn 1 används just nu.
+Hämtar data från libris och listar för bekräftelse innan det sparas.

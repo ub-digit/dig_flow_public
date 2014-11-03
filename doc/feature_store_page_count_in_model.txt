@@ -1,0 +1,12 @@
+feature_store_page_count_in_model
+
+Store the page_count property in metadata (job_metadata or jobs), exactly where is not decided yet.
+Also shopw the page_count property in job view.
+
+I put the code that collects the page_count into the run_mets.rb script, though
+it could easily have been put in the mets_control function on job.rb as well,
+after the mets control.
+
+I also commented out the zipping of the mets file, which made the testing much faster.
+
+Johan.Andersson.von.Geijer@ub.gu.se

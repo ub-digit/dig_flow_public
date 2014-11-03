@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title><%= t("jobs.print.page_title") %><%= "#{@job.id}" %></title>
+		<%= stylesheet_link_tag    "print", :media => "all" %>
+		<%= javascript_include_tag "application" %>
+		<%= csrf_meta_tags %>
+	</head>
+	<body>
+
+		<div class="container">
+			<div class="row">
+				<div class="span4" id="left_col">
+					<div  class="header">
+						<%= "#{@job.id}" %> <span class="project_name"><%= @job.project.name %></span>
+					</div>
+					<% if @job.name %>
+					<span class="label"><%= t("jobs.name") %>:</span>
+					<br />
+					<div class="subheader">
+						<%= @job.name %>
+					</div>
+					<% end %>
+
+					<span class="label"><%= t("jobs.original_title") %>:</span>
+					<br />
+					<div  class="subheader">
+						<%= "#{@job.title.truncate(DigFlow::Application.config.text[:truncate], separator: ' ')}" %>
+					</div>
+					<% if @job.author %>
+					<span class="label"><%= t("jobs.author") %>:</span>
+					<br />
+					<div class="subheader">
+						<%= "#{@job.author}" %>
+					</div>
+					<% end %>
+					<% if  !@job.ordinals_and_chronologicals.empty? %>
+					<span class="label"><%= t("jobs.serial_metadata") %></span>
+					<br />
+					<div class="bolded_text">
+						<%= @job.ordinals_and_chronologicals %>
+					</div>
+					<% end %>
+					<% if @job.catalog_id %>
+					<span class="label"><%= t("jobs.source_id") %></span>
+					<div  class="bolded_text">
+						<%= t("jobs.sources.#{@job.source_object.classname}") %>
+					</div>
+					<span class="label"><%= t("jobs.catalog_id") %>:</span>
+					<br />
+					<div class="bolded_text">
+						<%= @job.catalog_id %>
+					</div>
+					<% end %>
+					<div class="divider">
+						&nbsp;
+					</div>
+					<% if @job.object_info %>
+					<span class="label"><%= t("jobs.object_info") %>:</span>
+					<br />
+					<div class="bolded_text">
+						<%= simple_format(@job.object_info) %>
+					</div>
+					<% end %>
+					<% if @job.comment %>
+					<span class="label"><%= t("jobs.comment") %>:</span>
+					<br />
+					<div>
+						<%= simple_format(@job.comment) %>
+					</div>
+					<% end %>
+				</div>
+				<div class="span4">
+					<div>
+						<span class="bracket_left">( ) <%= t("jobs.print.scanned") %></span><span>( ) <%= t("jobs.print.pending") %></span>
+					</div>
+					<div class="label_rightcol">
+						<%= t("jobs.print.scanned_by") %>:
+					</div>
+					<div class="label_rightcol">
+						<%= t("jobs.print.date") %>:
+					</div>
+					<div class="label_rightcol">
+						<%= t("events.note") %>:
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</body>
+</html>

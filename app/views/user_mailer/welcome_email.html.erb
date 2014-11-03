@@ -1,0 +1,12 @@
+<h1 style="font-family: Sans-Serif;font-size:16px;"><%= t("mailalerts.header") %> </h1>
+
+<p style="font-family: Sans-Serif;"><%= t("mailalerts.welcome.subject") %></p>
+<p style="font-family: Sans-Serif;"><%= t("mailalerts.welcome.hello") + " " + @user.name %><br/>
+  <%= t("mailalerts.welcome.message_top") %><br/><br/>
+  <%= t("users.username") + ": " + @user.username %><br/>
+  <%= t("users.password") + ": " + @password %><br/><br/>
+  <%= t("mailalerts.welcome.message_bottom") %>
+</p>
+
+
+<p style="font-family: Sans-Serif;font-style:italic"><%= t("mailalerts.footer") %> </p>

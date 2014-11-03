@@ -1,0 +1,12 @@
+<% content_for :title do %>
+  <ul class="breadcrumb">
+    <li class="active"> <%= t("statistics.index.header") %>  </li>
+  </ul>
+<% end %>
+
+
+<div id="data">
+    <div id="stats_main" ><%= render :partial => "statistics/stats_main" %></div>
+</div>
+
+

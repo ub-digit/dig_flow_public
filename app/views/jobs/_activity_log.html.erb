@@ -1,0 +1,20 @@
+<table class="le_table" >
+  <tr class="le_table_header">
+    <th><%= t("common.timestamp") %></th>
+    <th><%= t("events.type") %></th>
+    <th><%= t("events.name") %></th>
+    <th><%= t("events.note") %></th>
+  </tr>
+  <% for activity in @activities.reverse %>
+  <% if activity.to_object.is_a?(Status) && !activity.to_object.show %>
+  <tr style="display: none;">
+  <% else %>
+  <tr>
+  <% end %>
+    <td><%= activity.created_at.short_time %></td>
+    <td><%= t("events."+activity.event.name) %></td>
+    <td><%= print_status(activity.to_object) %></td>
+    <td><%= activity.note %></td>
+  </tr>
+  <% end %>
+</table>

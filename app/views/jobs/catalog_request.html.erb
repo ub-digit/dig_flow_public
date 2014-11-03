@@ -1,0 +1,50 @@
+<% content_for :title  do %>
+<ul class="breadcrumb">
+	<li>
+		<%= link_to t("projects.show.header"), projects_path %><span class="divider">/</span>
+	</li>
+	<li>
+		<%= link_to @project.name, project_path(@project.id) %><span class="divider">/</span>
+	</li>
+	<li class="active">
+		<%= t("jobs.catalog_request.header") %>
+	</li>
+</ul>
+<% end %>
+
+<div id="catalog_request">
+	<%= form_for :job, :url => new_job_path, :method => :get do |f| %>
+	<% for param in params[:job].keys %>
+	<%= f.hidden_field param, :value => params[:job][param] %>
+	<% end %>
+	<% if params[:error] %>
+	<div class="alert alert-error">
+		<button type="button" class="close" data-dismiss="alert">
+			&times;
+		</button>
+		<strong><%= t("jobs.error.heading") %></strong>
+		<br/>
+		<%= t("jobs.error.information") %>
+	</div>
+	<% end %>
+	<%= f.label :catalog_id, t("jobs.catalog_id") %>
+	<%= f.text_field :catalog_id %>
+	<br/>
+	<%= f.label :source_id, t("jobs.source_id")%>
+	<% @sources.each do |source|%>
+		<%= f.radio_button :source_id , source.id, :checked => source.id.to_s == cookies["#{@project.id}_defaultsource"] || source.classname == "Libris" %>
+		<%= f.label :source_id, t("jobs.sources.#{source.classname}"), :value => source.id, :class => "label-radio"  %>
+	<% end %>
+	<br />
+	<br />
+	<%= submit_tag t("jobs.form.libris_fetch") %>
+	<% end %>
+	<% if @kommentar %>
+	<div class="link_cancel">
+		<a href="<%= @back %>"><%= t("common.form.cancel") %></a>
+	</div>
+	<% end %>
+	<% if @newest_job != nil %>
+	<%= link_to t("jobs.print.lastjob_command") + " " + @newest_job.id.to_s, print_job_path(@newest_job), :target => '_blank', :class => [:btn, "btn-block"], :style => "display:block;margin-top:50px;padding:10px;" %>
+	<% end %>
+</div>

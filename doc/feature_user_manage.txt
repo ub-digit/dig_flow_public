@@ -1,0 +1,13 @@
+Skapa inloggningsrutin
+Skapa formulär för användare
+Lista användare
+Spara/Uppdatera användare
+
+Manuellt skapat användare i develbas:
+User.create(:role_id => Role.find_by_name("admin").id, 
+            :username => "admin", :password => "admin", :name => "Administrator")
+
+Inloggning, formulär, lista, editering och skapa funkar.
+
+Kvar: Rättigheter för admin.
+

@@ -1,0 +1,6 @@
+feature_show_job_creator_in_search_results_lists
+
+Show who created a job in search results lists too.
+Added stuff to language files and find the nameto show as a value instead of the user_id behind the created_by value.
+
+Johan.Andersson.von.Geijer@ub.gu.se

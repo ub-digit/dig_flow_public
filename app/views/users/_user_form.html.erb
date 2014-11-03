@@ -1,0 +1,19 @@
+<%= form_for @user do |f| %>
+  <%= f.label :role_id, t("users.role") %>
+  <%= f.select :role_id, Role.where("name != ?", "guest").map {|x| [x.name, x.id]} %>
+  <%= f.label :username, t("users.username") %>
+  <%= f.text_field :username %>
+  <% if !@user.id %>
+  <%= f.label :password, t("users.password") %>
+  <%= f.password_field :password %>
+  <%= f.label :password_confirm, t("users.password_confirm") %>
+  <%= f.password_field :password_confirm %>
+  <% end %>
+  <%= f.label :name, t("users.name") %>
+  <%= f.text_field :name %>
+  <%= f.label :email, t("users.email") %>
+  <%= f.text_field :email %><br/>
+  <%= submit_tag t("common.form.submit") %>
+<% end %>
+
+

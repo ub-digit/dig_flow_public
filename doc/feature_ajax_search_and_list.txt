@@ -1,0 +1,3 @@
+Lägg till sökning på titel/namn/författare/id och gör sök/sortering/paginering via AJAX.
+
+Fixat via jquery och partials.

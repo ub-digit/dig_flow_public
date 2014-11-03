@@ -1,0 +1,99 @@
+<% content_for :title  do %>
+  <ul class="breadcrumb">
+    <li><%= link_to t("projects.show.header"), projects_path %><span class="divider">/</span></li>
+    <li><%= link_to @project.name, project_path(@project.id) %><span class="divider">/</span></li>
+    <li class="active"> <%= t("jobs.batch_fetch.header") %>  </li>
+  </ul>
+<% end %>
+
+<% if @import_job_count > @import_processed_count %>
+<meta http-equiv="refresh" content="2">
+<% end %>
+<div style="width: 100%; height: 3em; position: relative;">
+	<span style="position: absolute; left: 10%; right: 10%; border: 1px solid black; top: 0; height: 1.75em;"> <span style="text-align: right; color: black; position: absolute; left: 0; height: 1.75em; width: <%= @import_progress %>%; background-color: #aaa;"><%= @import_progress %>%</span> </span>
+</div>
+<p>
+	<% if @import_job_count == @import_processed_count %>
+	<%= form_for :job, :url => batch_import_jobs_path do |f| %>
+	<%= f.hidden_field :project_id, :value => @project.id %>
+	<%= f.hidden_field :import_id, :value => @import_id %>
+	<% if !@source.copyright_from_source? %>
+	<%= t("jobs.copyright") %>
+	<div class="copyright_radio">
+		<% @copyrights.each do |copyright| %>
+		<%= f.radio_button :new_copyright, copyright[1] %> <%= f.label copyright[1] != nil ? "new_copyright_#{copyright[1]}" : "new_copyright", copyright[0] %>
+		<% end %>
+	</div>
+	<% end %>
+	<br/>
+	<%= submit_tag t("jobs.form.batch_import") %>
+	<% end %>
+	<% end %>
+</p>
+<% if !@jobs_fail.blank? %>
+<%= t("jobs.failed") %>
+<table style="background-color: #f99;" border="1">
+	<tr>
+		<th><%= t("jobs.catalog_id") %></th>
+		<th><%= t("jobs.title") %></th>
+		<th><%= t("jobs.author") %></th>
+		<th><%= t("jobs.name") %></th>
+		<th><%= t("jobs.prioritized.label") %></th>
+		<th><%= t("jobs.object_info") %></th>
+		<th><%= t("jobs.comment") %></th>
+		<th><%= t("jobs.guessed_page_count") %></th>
+		<% (@column_names-["catalog_id", "name", "prio", "note", nil, "", "comment", "guessed_page_count"]).each do |metadata_key| %>
+		<th><%= t("job_metadata."+metadata_key) %></th>
+		<% end %>
+	</tr>
+	<% for job in @jobs_fail %>
+	<tr>
+		<td><%= job.catalog_id %></td>
+		<td><%= job.title %></td>
+		<td><%= job.author %></td>
+		<td><%= job.name %></td>
+		<td><%= job.priority %></td>
+		<td><%= job.object_info %></td>
+		<td><%= job.comment %></td>
+		<td><%= job.guessed_page_count %></td>
+		<% (@column_names-["catalog_id", "name", "prio", "note", nil, "", "comment", "guessed_page_count"]).each do |metadata_key| %>
+		<td><%= job.metadata.select {|x| x[0] == metadata_key}.first[1] %></td>
+		<% end %>
+	</tr>
+	<% end %>
+</table>
+<% end %>
+<p></p>
+<% if !@jobs_success.blank? %>
+<%= t("jobs.batch_fetch.header") %>
+<table border="1">
+	<tr>
+		<th><%= t("jobs.catalog_id") %></th>
+		<th><%= t("jobs.title") %></th>
+		<th><%= t("jobs.author") %></th>
+		<th><%= t("jobs.name") %></th>
+		<th><%= t("jobs.prioritized.label") %></th>
+		<th><%= t("jobs.object_info") %></th>
+		<th><%= t("jobs.comment") %></th>
+		<th><%= t("jobs.guessed_page_count") %></th>
+		<% (@column_names-["catalog_id", "name", "prio", "note", nil, "", "comment", "guessed_page_count"]).each do |metadata_key| %>
+		<th><%= t("job_metadata."+metadata_key) %></th>
+		<% end %>
+	</tr>
+	<% for job in @jobs_success %>
+	<tr>
+		<td><%= job.catalog_id %></td>
+		<td><%= job.title %></td>
+		<td><%= job.author %></td>
+		<td><%= job.name %></td>
+		<td><%= job.priority %></td>
+		<td><%= job.object_info %></td>
+		<td><%= job.comment %></td>
+		<td><%= job.guessed_page_count %></td>
+		<% (@column_names-["catalog_id", "name", "prio", "note", nil, "", "comment", "guessed_page_count"]).each do |metadata_key| %>
+		<td><%= job.metadata.select {|x| x[0] == metadata_key}.first[1] %></td>
+		<% end %>
+	</tr>
+	<% end %>
+</table>
+<% end %>

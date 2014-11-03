@@ -1,0 +1,6 @@
+feature_print_button
+
+Create and place a print button at the job detail page.
+Created that link and made it open a new page with _blank.
+Quick and dirty, I admit.
+

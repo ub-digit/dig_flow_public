@@ -1,0 +1,27 @@
+/*
+ *= require bootstrap
+ * 
+ *= require_self
+ */
+
+body {font-family: verdana;}
+.subheader {font-size: 16pt; font-weight: normal; margin-bottom: 10px;}
+.header {font-size: 24pt; font-weight: bold; margin-bottom: 10px;}
+.label {font-style:italic;}
+.bolded_text {font-weight: bold;}
+.bracket_left {margin-right: 30px;}
+.label_rightcol {margin-top: 10px;}
+.divider {margin-top: 30px;}
+.project_name {font-size: 16pt; font-weight: normal;}
+
+#left_col {
+    width: 60%;
+    border-right: 1px solid black;}
+
+/*Overriding bootstrap*/
+.container {margin-top: 20px;
+            margin-left: 10px;}
+
+
+
+

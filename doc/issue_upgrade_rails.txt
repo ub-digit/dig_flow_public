@@ -1,0 +1,3 @@
+Uppgradera rails till 3.2.9
+
+Ändrat i Gemfile, tagit bort Gemfile.lock, kört "bundle install".

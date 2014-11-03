@@ -1,0 +1,4 @@
+Ladda upp metadata i kolumner ur TAB-filen. 
+Första raden talar om kolumnnamn, andra och tredje ignoreras.
+
+Databasen ändrad så att job_metadata har metadata_type istället för bara type.

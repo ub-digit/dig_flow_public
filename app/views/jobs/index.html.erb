@@ -1,0 +1,43 @@
+<% content_for :title do %>
+<% if !params[:quarantined].nil? %>
+<ul class="breadcrumb">
+	<li class="active">
+		<%= t("jobs.quarantine_header") %>
+	</li>
+</ul>
+<% else %>
+<ul class="breadcrumb">
+	<li class="active">
+		<%= t("jobs.index.header") %>
+	</li>
+</ul>
+<% end %>
+<% end %>
+
+<div id="data">
+	<div>
+		&nbsp;
+	</div>
+	<%= form_tag jobs_path, :method => :get, :id => "job_list_search" do %>
+	<ul class="nav nav-pills">
+		<% DigFlow::Application.config.filter_views.each do |i| %>
+		<li class="<%= params[:view] == i[:name] ? "active" : "" %>">
+			<%= link_to t("jobs." + i[:name]), jobs_path(:view => i[:name]) %>
+		</li>
+		<% end %>
+	</ul>
+	<div id="my_search">
+		<%= text_field_tag :search, params[:search], placeholder: t("jobs.search") %>
+		<div class="filter_group">
+			<%= select_tag :f_o, options_from_collection_for_select(@owners,   :id, :name, params[:f_o]), prompt: t("jobs.search_filter_on_owner_prompt"), :class => "filter_selection" %>
+			<%= select_tag :f_s, options_for_select(@statuses, params[:f_s]), prompt: t("jobs.search_filter_on_status_prompt"), :class => "filter_selection" %>
+			<%= select_tag :f_p, options_from_collection_for_select(@projects, :id, :name, params[:f_p]), prompt: t("jobs.search_filter_on_project_prompt"), :class => "filter_selection" %>
+		</div>
+	</div>
+	
+	<div id="job_list">
+		<%= render :partial => 'job_list' %>
+	</div>
+	<% end %>
+</div>
+

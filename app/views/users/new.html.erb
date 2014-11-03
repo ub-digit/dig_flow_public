@@ -1,0 +1,5 @@
+<% content_for :title do %>
+<%= link_to t("users.index.header"), users_path %>: <%= t("users.new.header")%>
+<% end %>
+
+<%= render :partial => 'user_form' %>

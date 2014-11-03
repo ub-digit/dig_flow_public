@@ -1,0 +1,63 @@
+<% content_for :title do %>
+  <ul class="breadcrumb">
+    <li><%= link_to t("users.index.header"), users_path %><span class="divider">/</span></li>
+    <li class="active"> <%= @user.name %> </li>
+  </ul>
+<% end %>
+
+
+<div id="toolbar_left">
+  <div id="toolbar_item">
+    <div id="toolbar_link">
+      <%= link_to t("common.edit"), edit_user_path(@user), :class => [:btn, "btn-block"] %>
+    </div>
+  </div>
+  <div id="toolbar_item">
+    <div id="toolbar_link"><%= link_to t("users.change_password.change_password"),
+        change_password_users_path(:id => @user.id, :return_path => request.fullpath), :class => [:btn, "btn-block"] %></div>
+  </div>
+  <% if @user.id != @current_user.id %>
+    <div id="toolbar_item">
+      <div id="toolbar_link">
+        <% if @user.deleted_at == nil %>
+          <%= link_to t("users.delete"), delete_user_path(@user), :confirm => t("users.delete_confirm"), :class => [:btn, "btn-block"] %>
+        <% else %>
+          <%= link_to t("users.undelete"), undelete_user_path(@user), :class => [:btn, "btn-block"] %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+  <div>&nbsp;</div>
+</div>
+
+
+
+
+<div id="data">
+
+  <table class="le_table">
+    <tr class="le_table_header">
+      <th><%= t("users.username") %></th>
+      <th><%= t("users.name") %></th>
+      <th><%= t("users.email") %></th>
+      <th><%= t("users.role") %></th>
+      <th colspan="3">&nbsp;</th>
+    </tr>
+
+    <tr  class="<%= cycle('odd', 'even')%>">
+      <td><%= @user.username %></td>
+      <td><%= @user.name %></td>
+      <td><%= @user.email %></td>
+      <td><%= @user.role.name %></td>
+      <% if @false %>
+        <td><%= link_to t("common.edit"), edit_user_path(@user) %></td>
+        <td><%= link_to t("users.change_password.change_password"),
+            change_password_users_path(:id => @user.id, :return_path => request.fullpath) %></td>
+        <% if @user.id != @current_user.id %>
+          <td><%= link_to t("users.delete"), delete_user_path(@user), :confirm => t("users.delete_confirm") %></td>
+        <% end %>
+      <% end %>
+    </tr>
+
+  </table>
+</div>

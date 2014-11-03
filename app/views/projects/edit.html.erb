@@ -1,0 +1,11 @@
+<% content_for :title do %>
+<ul class="breadcrumb">
+    <li><%= link_to t("projects.show.header"), projects_path %><span class="divider">/</span></li>
+    <li><%= link_to @project.name, project_path(@project.id) %><span class="divider">/</span></li>
+    <li class="active"> <%= t("projects.edit.header") %> </li>
+    </ul>
+<% end %>
+
+<div id="edit_form">
+  <%= render :partial => 'project_form' %>
+</div>

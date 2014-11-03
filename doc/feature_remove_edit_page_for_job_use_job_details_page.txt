@@ -1,0 +1,6 @@
+feature_remove_edit_page_for_job_use_job_details_page
+
+Remove the edit page for jobs. The editing should be done at the job details page instead.
+
+Did not remove that page. It will have to be done in another branch. Fixed note and priority data from import file instead.
+

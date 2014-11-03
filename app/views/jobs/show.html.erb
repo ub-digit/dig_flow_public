@@ -1,0 +1,362 @@
+<% content_for :title do %>
+<ul class="breadcrumb">
+	<li>
+		<%= link_to t("projects.show.header"), projects_path %><span class="divider">/</span>
+	</li>
+	<li>
+		<%= link_to @job.project.name, project_path(@job.project.id) %><span class="divider">/</span>
+	</li>
+	<li class="active">
+		<%= @job.id %>
+	</li>
+	<li>
+		<div class="job_switcher">
+			<% if @job.id == @firstJob.id  %>
+			<span class="job_switcher_inactive"><%= t("jobs.job_switcher.first") %></span>
+			<% else %>
+			<span class="job_switcher_active"><%= link_to t("jobs.job_switcher.first"), job_path(@firstJob) %></span>
+			<% end %>
+			<% if @previousJob != nil %>
+			<span class="job_switcher_active"><%= link_to raw(t("jobs.job_switcher.previous")), job_path(@previousJob) %></span>
+			<% else %>
+			<span class="job_switcher_inactive"><%= raw(t("jobs.job_switcher.previous")) %></span>
+			<% end %>
+			<% if @nextJob != nil %>
+			<span class="job_switcher_active"><%= link_to raw(t("jobs.job_switcher.next")), job_path(@nextJob) %></span>
+			<% else %>
+			<span class="job_switcher_inactive"><%= raw(t("jobs.job_switcher.next")) %></span>
+			<% end %>
+			<% if @job.id == @lastJob.id  %>
+			<span class="job_switcher_inactive"><%= t("jobs.job_switcher.last") %></span>
+		</div>
+		<% else %>
+		<span class="job_switcher_active"><%= link_to t("jobs.job_switcher.last"), job_path(@lastJob) %></span></div>
+		<% end %>
+	</li>
+	<% if @job.is_prioritized? %>
+	<li>
+		<span class="prioritized_job"><%= t("jobs.prioritized.message") %></span>
+	</li>
+	<% end %>
+
+</ul>
+<% end %>
+
+<% if @current_user.logged_in? %>
+<div id="toolbar_left">
+	<% if @job.quarantined && @current_user.logged_in? && (@current_user.is_admin? || @current_user.is_operator?) %>
+	<span class="quarantined_text"><%= t("statuses.quarantined") %></span>
+	<div id="toolbar_item">
+		<div id="toolbar_link">
+			<%= link_to t("jobs.unquarantine"), unquarantine_job_path(@job, :dummy => false), :class => [:btn, "btn-block", "unquarantine_link"]%>
+		</div>
+	</div>
+
+	<div id="toolbar_item">
+		<div id="toolbar_link">
+			<%= link_to t("jobs.restart"), restart_job_path(@job, :dummy => false), :data => {:note => t("jobs.restart_confirm") + "\n" + t("jobs.restart_note"), :error => t("jobs.restart_error")}, :class => [:btn, "btn-block", "quarantine_link"]%>
+		</div>
+	</div>
+	<% end %>
+	<% if !@job.quarantined %>
+
+	<% if @job.has_digitizing_begin? %>
+	<div id="toolbar_item">
+		<div id="toolbar_link ">
+			<%= link_to t("common.start_digitizing"), digitizing_begin_job_path(@job.id), :class => ["btn","btn-block","digitize_btn"]  %>
+		</div>
+	</div>
+	<% end %>
+
+	<div id="toolbar_item">
+		<% if @job.status.progress_state == "done" || !@current_user.is_admin? %>
+		<% else%>
+		<div id="toolbar_select">
+			<%= form_for :job, :url => { :action => :job_edit }, :html => {:id => "job_select"} do |f| %>
+			<% f.select :new_status, @statuses,  :prompt => t("jobs.change_status") + ' ...' %>
+			<% end %>
+		</div>
+		<% end %>
+	</div>
+
+	<div id="toolbar_item">
+
+		<div id="toolbar_select">
+			<%= form_for :job, :url => { :action => :job_move }, :html => {:id => "job_move_select"} do |f| %>
+			<% f.select :new_project, @projects,  :prompt => t("jobs.change_project") + ' ...' %>
+			<% end %>
+		</div>
+	</div>
+	<% if @current_user.is_admin? %>
+
+	<div id="toolbar_item">
+		<div id="toolbar_select">
+			<%= form_for :job, :url => {:action => :job_copyright }, :html => {:id => "job_copyright_select"} do |f| %>
+			<% f.select :new_copyright, @copyrights,  :prompt => t("jobs.change_copyright") + ' ...' %>
+			<% end %>
+		</div>
+	</div>
+	<% end %>
+
+	<div id="toolbar_item">
+		<div id="toolbar_link">
+			<% if @job.priority == 1 %>
+			<%= link_to t("jobs.deprioritize"), update_priority_job_path(@job, :priority => 0), :class => [:btn, "btn-block"] %>
+			<% else %>
+			<%= link_to t("jobs.prioritize"), update_priority_job_path(@job, :priority => 1), :class => [:btn, "btn-block"] %>
+			<% end %>
+		</div>
+	</div>
+
+	<% if @job.waiting_for_quality_control? && @current_user.logged_in? %>
+	<div id="toolbar_item">
+		<div id="toolbar_link">
+			<%= link_to t("jobs.quality_control_ok"), quality_control_begin_job_path(@job), :class => [:btn, "btn-block"]  %>
+		</div>
+	</div>
+	<% end %>
+
+	<% if !@job.quarantined && @current_user.logged_in? &&  @job.status.progress_state != "done" && @job.status.progress_state != "mets"
+	(@job.user_id == @current_user.id || @current_user.is_admin? || @current_user.is_operator? || @job.waiting_for_quality_control?) %>
+	<div id="toolbar_item">
+		<div id="toolbar_link">
+			<%= link_to t("jobs.quarantine"), quarantine_job_path(@job, :dummy => false), :data => {:note => t("jobs.quarantine_note"), :error => t("jobs.quarantine_error")}, :class => [:btn, "btn-block", "quarantine_link"]%>
+		</div>
+	</div>
+	<% end %>
+
+	<div id="toolbar_item">
+		<div id="toolbar_link">
+			<%= link_to t("jobs.restart"), restart_job_path(@job, :dummy => false), :data => {:note => t("jobs.restart_confirm") + "\n" + t("jobs.restart_note"), :error => t("jobs.restart_error")}, :class => [:btn, "btn-block", "quarantine_link"]%>
+		</div>
+	</div>
+
+	<% if @current_user.is_admin? %>
+	<div id="toolbar_item">
+		<div id="toolbar_link">
+			<%= link_to t("jobs.delete") , delete_job_path(@job) , :confirm => t("jobs.delete_confirm"), :class => [:btn, "btn-block"]%>
+		</div>
+	</div>
+	<% end %>
+
+	<div id="toolbar_item">
+		<div id="toolbar_">
+			<%= link_to t("jobs.print.command"), print_job_path(@job), :target => '_blank' , :class => [:btn, "btn-block"] %>
+		</div>
+	</div>
+	<% end %>
+	<div>
+		&nbsp;
+	</div>
+
+	<div id="toggleLink_activity_log" >
+		<div id="toolbar_link">
+			<a href="javascript:void(0)" class="toggleLink_activity_log btn btn-block"><%= t("jobs.toggle_link.activity_log")%></a>
+		</div>
+	</div>
+	<div id="toggleLink_xml">
+		<div id="toolbar_link">
+			<a href="javascript:void(0)" class="toggleLink_xml btn btn-block"><%= t("jobs.toggle_link.xml")%></a>
+		</div>
+	</div>
+</div>
+
+<% end %>
+
+<div id="data">
+
+	<table class="le_table">
+		<col width="150" />
+		<tr class="le_table_header">
+			<th colspan="2" id="job_overview"><%= t("common.summary") %></th><th>Objektinformation</th><th>Kommentar</th>
+		</tr>
+		<tr>
+			<td ><%= t("jobs.id") %></td>
+			<td><%= @job.id %></td>
+
+			<%= form_for @job, :url => { :action => :update} do |f| %>
+			<td class="editable_form" rowspan="8"  valign="top" i><span class="plain"><%= @job.object_info ? sanitize(@job.object_info.gsub(/\n/m,"
+				<br/>
+				"), :tags => %w(br b i)) : t("jobs.click_to_add").html_safe %></span> <%= f.text_area :object_info, :cols => 40, :rows => 10, :class => "form" %>
+			<br />
+			<%= submit_tag t("common.form.submit"), :class => "form" %> </td>
+
+			<td class="editable_form" rowspan="8"  valign="top"><span class="plain"><%= @job.comment ? sanitize(@job.comment.gsub(/\n/m,"
+				<br/>
+				"), :tags => %w(br b i)) : t("jobs.click_to_add").html_safe  %></span> <%= f.text_area :comment, :cols => 40, :rows => 10, :class => "form" %>
+			<br />
+			<%= submit_tag t("common.form.submit"), :class => "form" %> </td>
+
+		</tr>
+		<tr>
+
+			<td><%= t("jobs.name") %></td>
+			<td class="editable_form_name"><span class="plain"><%= @job.name || t("jobs.click_to_add").html_safe  %></span> <%= f.text_field :name, :class => "form"%>
+			<%= submit_tag t("common.form.submit"), :class => "form" %> </td>
+		</tr>
+		<% end %>
+		<tr>
+			<td><%= t("jobs.title") %></td>
+			<td><%= @job.title %></td>
+		</tr>
+
+		<% if @job.type_of_record == 'as' %>
+		<tr>
+			<td><%= t("jobs.ordinals") %></td>
+			<td><%= @job.ordinals %></td>
+		</tr>
+		<tr>
+			<td><%= t("jobs.chronologicals") %></td>
+			<td><%= @job.chronologicals %></td>
+		</tr>
+		<% if @current_user.logged_in? %>
+		<tr >
+			<td valign="top"></td>
+
+			<td  class="editable_form_name"><span class="plain"><%= t("jobs.click_to_add_serial_metadata").html_safe  %></span>
+			<table>
+
+				<%= form_for @job, :url => { :action => :update} do |f| %>
+
+				<tr>
+					<td colspan="2" class="form"><%= t("jobs.ordinals") %></td>
+				</tr>
+
+				<tr>
+					<td><%= text_field_tag 'job_metadata_ord_key[]' , @ordinal_1_key, :class => "form" %></td><td><%= text_field_tag 'job_metadata_ord_value[]' , @ordinal_1_value, :class => "form"  %></td>
+				</tr>
+				<tr>
+					<td><%= text_field_tag 'job_metadata_ord_key[]' , @ordinal_2_key, :class => "form"  %></td><td><%= text_field_tag 'job_metadata_ord_value[]' , @ordinal_2_value, :class => "form"  %></td>
+				</tr>
+				<tr>
+					<td><%= text_field_tag 'job_metadata_ord_key[]' , @ordinal_3_key , :class => "form" %></td><td><%= text_field_tag 'job_metadata_ord_value[]' , @ordinal_3_value, :class => "form"  %></td>
+				</tr>
+
+				<tr>
+					<td colspan="2" class="form"><%= t("jobs.chronologicals") %></td>
+				</tr>
+
+				<tr>
+					<td><%= text_field_tag 'job_metadata_chron_key[]' , @chron_1_key, :class => "form"  %></td><td><%= text_field_tag 'job_metadata_chron_value[]' , @chron_1_value, :class => "form"  %></td>
+				</tr>
+				<tr>
+					<td><%= text_field_tag 'job_metadata_chron_key[]' , @chron_2_key, :class => "form"  %></td><td><%= text_field_tag 'job_metadata_chron_value[]' , @chron_2_value, :class => "form"  %></td>
+				</tr>
+				<tr>
+					<td><%= text_field_tag 'job_metadata_chron_key[]', @chron_3_key, :class => "form"  %></td><td><%= text_field_tag 'job_metadata_chron_value[]' , @chron_3_value, :class => "form"  %></td>
+				</tr>
+
+				<%= f.hidden_field :id %>
+				<%= f.hidden_field :object_info %>
+				<%= f.hidden_field :comment %>
+				<%= f.hidden_field :name %>
+				<%= hidden_field_tag 'job_metadata_update' %>
+				<tr>
+					<td><%= submit_tag t("common.form.submit"), :class => "form" %></td><td></td>
+				</tr>
+				<% end %>
+			</table></td>
+		</tr>
+
+		<% end %>
+
+		</td>
+		</tr>
+
+		<% end %>
+		
+		<% if @job.type_of_record == 'tm' %>
+		<tr>
+			<td><%= t("jobs.archive") %></td>
+			<td><%= @job.column_data("archive") %></td>
+		</tr>
+		<tr>
+			<td><%= t("jobs.location") %></td>
+			<td><%= @job.column_data("location") %></td>
+		</tr>
+		<tr>
+			<td><%= t("jobs.scope") %></td>
+			<td><%= @job.column_data("scope") %></td>
+		</tr>
+		
+		<% end %>
+
+		<% if @job.author && !@job.author.blank? %>
+		<tr>
+			<td><%= t("jobs.author") %></td>
+			<td><%= @job.author %></td>
+		</tr>
+		<% end %>
+		<tr>
+			<td><%= t("jobs.owner") %></td>
+			<td><%= @job.user.name %></td>
+		</tr>
+		<tr>
+			<td><%= t("jobs.status") %></td>
+			<td><%= t("statuses."+@job.status.name) %></td>
+		</tr>
+		<tr>
+			<td><%= t("jobs.source_id") %></td>
+			<td><%= t("jobs.sources.#{@job.source_object.classname}") %></td>
+		</tr>
+		<tr>
+			<td><%= t("jobs.catalog_id") %></td>
+			<td><%= @job.catalog_id %></td>
+		</tr>
+		<tr>
+			<td><%= t("jobs.copyright") %></td>
+			<td><%= copyright_for_job(@job) %></td>
+		</tr>
+		<tr>
+			<td><%= t("jobs.project") %></td>
+			<td><%= @job.project.name %></td>
+		</tr>
+		<tr>
+			<td><%= t("jobs.guessed_page_count") %></td>
+			<td><%= @job.guessed_page_count %></td>
+		</tr>
+		<tr>
+			<td><%= t("jobs.page_count") %></td>
+			<td><%= @job.page_count %></td>
+		</tr>
+		<% if @current_user.logged_in? %>
+		<% if @job.has_pdf? %>
+		<tr>
+			<td><%= t("jobs.pdf_link") %></td>
+			<td><%= link_to(image_tag("pdf.png", :height => '30', :width => '32'),job_path(@job, :format => :pdf))  %></td>
+		</tr>
+		<% end %>
+		<% end %>
+		<% if @job.type_of_record %>
+		<tr>
+			<td><%= t("jobs.type_of_record") %></td>
+			<td><%= t("jobs.type_of_record_" + @job.type_of_record)%></td>
+		</tr>
+		<% end %>
+
+		<tr>
+			<td><%= t("jobs.created_by") %></td>
+			<td><%= @creator.name %></td>
+		</tr>
+
+	</table>
+
+	<div class="progress">
+		<div class="progress_done" style="width: <%= @job.progress %>%;" title="<%= @job.progress.to_i %>%" >
+			&nbsp;
+		</div>
+		<div class="progress_not_started" style="width: <%= 100 - @job.progress %>%;" title="<%= 100 - @job.progress.to_i %>%">
+			&nbsp;
+		</div>
+	</div>
+
+	<div id="activity_log">
+		<%= render :partial => "activity_log" %>
+	</div>
+
+	<div id="xml">
+		<%= @xslt.transform(@xml).to_s.html_safe %>
+	</div>
+</div>
+</div>
+

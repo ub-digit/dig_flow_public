@@ -1,0 +1,27 @@
+
+
+
+<% if !@prioritized_jobs.blank? %>
+  <table class="le_table">
+    <tr><th class="page_header error" colspan="3" align="left"><%= t("jobs.prioritized_jobs") %></th></tr>
+
+  <%= form_for "quality_control", :url => batch_quality_control_jobs_path do |form| %>
+
+
+  <% for job in @prioritized_jobs %>
+  <tr class="<%= cycle('even', 'odd')%>">
+    <td><%= job.id %></td>
+    <td><%= link_to job.display_title, job_path(job) %></td>
+
+
+
+    <td><%= link_to job.project.name, project_path(job.project.id) %></td>
+
+  </tr>
+  <% end %>
+  <% end %>
+  </table>
+  <div id="projectSeparator"></div>
+<% else %>
+ <div class="error">Inga prioriterade jobb</div>
+<% end %>

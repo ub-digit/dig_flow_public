@@ -1,0 +1,136 @@
+<% content_for :title do %>
+<ul class="breadcrumb">
+	<li>
+		<%= link_to t("projects.show.header"), projects_path %><span class="divider">/</span>
+	</li>
+	<li class="active">
+		<%= @project.name %></span>
+	</li>
+</ul>
+<% end %>
+
+<div id="toolbar_left">
+	<% if @current_user.is_admin? %>
+	<div id="project_edit">
+		<div id="project_edit_link">
+			<%= link_to t("common.edit"), edit_project_path(@project) , :class => [:btn, "btn-block"] %>
+		</div>
+	</div>
+
+	<% if @project.is_empty? %>
+	<div id="project_delete">
+		<div id="project_delete_link">
+			<%= link_to t("projects.delete"), delete_project_path(@project), :confirm => t("projects.delete_confirm"), :class => [:btn, "btn-block"]  %>
+		</div>
+	</div>
+	<% end %>
+	<% end %>
+
+	<% if @current_user.logged_in? %>
+	<% if @current_user.is_admin? || @current_user.is_operator? %>
+	<div id="project_singlejob">
+		<div id="project_singlejob_link">
+			<%= link_to t("jobs.new.create"), catalog_request_jobs_path(:job => {:project_id => @project.id, :user_id => @current_user.id}), :class => [:btn, "btn-block"]%>
+		</div>
+	</div>
+	<% end %>
+	<% end %>
+	<% if @current_user.is_admin? %>
+	<div id="project_batchjob">
+		<div id="project_batchjob_link">
+			<%= link_to t("jobs.import.header"), import_jobs_path(:job => {:project_id => @project.id}),:class => [:btn, "btn-block"]  %>
+		</div>
+	</div>
+	<% end %>
+	<div>
+		&nbsp;
+	</div>
+	<div id="project_owner">
+		<div id="toolbar_label">
+			<%= t("projects.owner") %>
+		</div>
+		<div id="project_owner_name">
+			<%= @project.user.name %>
+		</div>
+	</div>
+
+	<div id="project_copyright">
+		<div id="toolbar_label">
+			<%= t("mets_data.copyright_status.label")%>
+		</div>
+		<div id="project_copyright_status">
+			<%= copyright_for @project %>
+		</div>
+	</div>
+	<% if @project.note? %>
+	<div id="project_note">
+		<div id="toolbar_label">
+			<%= t("projects.note") %>
+		</div>
+		<div id="project_note_content">
+			<%= sanitize((@project.note || '').gsub(/\n/m,"
+			<br/>
+			"), :tags => %w(br b i)) %>
+		</div>
+	</div>
+	<% end %>
+	<div>
+		&nbsp;
+	</div>
+</div>
+
+<div id="data">
+	
+	<div class="progress_big  <% if @project.jobs.count == 0 %>empty<% end %>">
+		<% if @project.jobs.count == 0 %> &nbsp; <% end %>
+		<div class="progress_done" style="width: <%= @project.progress(:done) %>%;" title="<%= (@project.progress(:done) + 0.5).to_i %>%">
+			&nbsp;
+		</div>
+		<div class="progress_mets" style="width: <%= @project.progress(:mets) %>%;" title="<%= (@project.progress(:mets) + 0.5).to_i %>%">
+			&nbsp;
+		</div>
+		<div class="progress_started" style="width: <%= @project.progress(:started) %>%;" title="<%= (@project.progress(:started) + 0.5).to_i %>%">
+			&nbsp;
+		</div>
+		<div class="progress_not_started" style="width: <%= @project.progress(:not_started) %>%;" title="<%= (@project.progress(:not_started) + 0.5).to_i %>%">
+			&nbsp;
+		</div>
+	</div>
+	
+	
+	<div style="clear: both;">
+		&nbsp;
+	</div>
+	<ul class="nav nav-pills">
+		<% DigFlow::Application.config.filter_views.each do |i| %>
+		<li class="<%= params[:view] == i[:name] ? "active" : "" %>">
+			<%= link_to t("jobs." + i[:name]), project_path(:view => i[:name]) %>
+		</li>
+		<% end %>
+	</ul>
+
+	<ul class="nav nav-pills">
+		<li class="<%= params[:selected] ? "" : "active" %>">
+			<%= link_to t("jobs.all"), project_path(@project) %>
+		</li>
+		<% DigFlow::Application.config.project_jobgroups.each do |i| %>
+		<li class="<%= params[:selected] == i[:name] ? "active" : "" %>">
+			<%= link_to t("jobs." + i[:name]), project_path(@project, :selected => i[:name]) %>
+		</li>
+		<% end %>
+		<li class="divider"></li>
+		<li class="<%= params[:selected] == "quarantine" ? "active" : "" %>" style="float:right;<%= @quarantined_job_count > 0 ? "font-weight:bold;" : "" %> ">
+			<%= link_to t("jobs.quarantined") + (@quarantined_job_count > 0 ? "(" + @quarantined_job_count.to_s + ")" : ""), project_path(@project, :selected => :quarantine, :quarantined => true) %>
+		</li>
+	</ul>
+
+	<div>
+		<%= form_tag jobs_path, :method => :get, :id => "job_list_search" do %>
+		<%= text_field_tag :search, params[:search], placeholder: t("jobs.search") %>
+
+		<div id="job_list">
+			<%= render :partial => "jobs/job_list" %>
+		</div>
+		<% end %>
+	</div>
+

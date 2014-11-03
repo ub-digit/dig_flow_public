@@ -1,0 +1,4 @@
+Skapa databas med resource för User, Project och Job, 
+samt model för Role, Status, Event, Activity, JobMetadatum.
+
+Prylar skapade. Dokumentation finns i Wiki.

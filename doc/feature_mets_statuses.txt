@@ -1,0 +1,9 @@
+feature_mets_statuses
+
+Add new statuses to the system:
+* Waiting for mets control (Begin + End)
+* Mets Control (Begin + End)
+* Mets Production (Begin + End)
+
+And language files are also updated.
+

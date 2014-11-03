@@ -1,0 +1,15 @@
+feature_show_prioritized_jobs_in_list
+
+Adding a priority column to the jobs database table.
+This is done by editing the Jobs model class which will
+propagate the change down to the database layer.
+
+Also the list of prioritized jobs should show up at the projects page,
+that will work as the start page for the system.
+
+Also the jobs in the prioritized list may not have the status "done".
+
+Also added label for the prioritized jobs table.
+
+Johan Andersson von Geijer
+

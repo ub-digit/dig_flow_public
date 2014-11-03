@@ -1,0 +1,5 @@
+Sätt bara status om det finns en job-parameter.
+Återvänd till projektvy från jobb-formulär.
+
+Klart.
+

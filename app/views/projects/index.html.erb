@@ -1,0 +1,89 @@
+<% content_for :title do %>
+  <ul class="breadcrumb">
+    <li class="active"> <%= t("projects.index.header") %>  </li>
+  </ul>
+<% end %>
+
+
+
+
+
+<% if @current_user.is_admin? %>
+  <div id="toolbar_left">
+    <div id="project_new">
+      <div id="project_edit_link"><%= link_to t("projects.new.create"), new_project_path, :class => ["btn","btn-block"] if @current_user.is_admin?  %></div>
+    </div>
+      <% if !@prioritized_jobs.blank? %>
+    <div id="toolbar_item">
+     <div id="toggleLink_prioritized_jobs">
+       <div id="toolbar_link"> <a href="javascript:void(0)" class="toggleLink_prioritized_jobs btn btn-block"><%= t("projects.toggle_link.prioritized_jobs")%></a></div>
+     </div>
+    </div>
+      <% end %>
+  </div>
+<% end %>
+
+<div id="data">
+  <% if @current_user.is_admin? %>
+    <div id="prioritized_jobs" ><%= render :partial => "jobs/prioritized_job_list" %></div>
+  <% end %>
+  <% if @current_user.is_operator? %>
+    <div id="prioritized_job_list" ><%= render :partial => "jobs/prioritized_job_list" %></div>
+  <% end %>
+  <table class="le_table" cellspacing="1">
+    <% if !@projects_active.blank? %>
+      <tr><th colspan="4" align="left" class="page_header"><%= t("projects.active") %></th></tr>
+      <tr class="le_table_header">
+        <th style="width: 15%;"><%= t("projects.name") %></th>
+        <th style="width: 10%;"><%= t("projects.owner") %></th>
+        <th style="width: 60%;"><%= t("projects.note") %></th>
+        <th style="width: 15%;"><%= t("projects.progress") %></th>
+      </tr>
+      <% for project in @projects_active %>
+        <tr class="<%= cycle('odd', 'even')%>">
+          <td><%= link_to project.name, project_path(project) %></td>
+          <td><%= project.user.name %></td>
+          <td><%= project.note %></td>
+          <td>
+            <div class="progress  <% if project.jobs.count == 0 %>empty<% end %>"><% if project.jobs.count == 0 %>&nbsp;<% end %>
+              <div class="progress_done" style="width: <%= project.progress(:done) %>%;" title="<%= project.progress(:done).to_i %>%">&nbsp;</div>
+              <div class="progress_mets" style="width: <%= project.progress(:mets) %>%;" title="<%= project.progress(:mets).to_i %>%">&nbsp;</div>
+              <div class="progress_started" style="width: <%= project.progress(:started) %>%;" title="<%= project.progress(:started).to_i %>%">&nbsp;</div>
+              <div class="progress_not_started" style="width: <%= project.progress(:not_started) %>%;" title="<%= project.progress(:not_started).to_i %>%">&nbsp;</div>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+  </table>
+
+  <%reset_cycle%>
+  <div id="projectSeparator"></div>
+  <% if !@projects_done.blank? %>
+    <table class="le_table" cellspacing="1">
+      <tr><th colspan="4" align="left" class="page_header"><%= t("projects.done") %></th></tr>
+       <tr class="le_table_header">
+        <th style="width: 15%;"><%= t("projects.name") %></th>
+        <th style="width: 10%;"><%= t("projects.owner") %></th>
+        <th style="width: 60%;"><%= t("projects.note") %></th>
+        <th style="width: 15%;"><%= t("projects.progress") %></th>
+      </tr>
+      <% for project in @projects_done %>
+        <tr class="<%= cycle('odd', 'even')%>">
+          <td><%= link_to project.name, project_path(project) %></td>
+          <td><%= project.user.name %></td>
+          <td><%= project.note %></td>
+          <td>
+            <div class="progress <% if project.jobs.count == 0 %>empty<% end %>"><% if project.jobs.count == 0 %>&nbsp;<% end %>
+            <div class="progress_done" style="width: <%= project.progress(:done) %>%;" title="<%= project.progress(:done).to_i %>%">&nbsp;</div>
+            <div class="progress_mets" style="width: <%= project.progress(:mets) %>%;" title="<%= project.progress(:mets).to_i %>%">&nbsp;</div>
+            <div class="progress_started" style="width: <%= project.progress(:started) %>%;" title="<%= project.progress(:started).to_i %>%">&nbsp;</div>
+            <div class="progress_not_started" style="width: <%= project.progress(:not_started) %>%;" title="<%= project.progress(:not_started).to_i %>%">&nbsp;</div>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+  </table>
+</div>
+
+

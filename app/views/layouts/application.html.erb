@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dflow: <%= strip_tags(yield(:title)) %></title>
+    <%= stylesheet_link_tag    "application", :media => "all" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+
+  </head>
+  <body>
+  <header>
+
+
+    <nav style="float: left;">
+      <nav_item style="float: right;">
+        <span class="nav_text"><%= t("users.logged_in_as") %>: <%= @current_user.name %> (<%= @current_user.role.name %>)</span>
+        <% if @current_user.logged_in? %>
+          <%=  link_to t("users.logout"), logout_users_path(:return_path => request.fullpath) %> | <%= link_to t("users.change_password.change_password"), change_password_users_path(:return_path => request.fullpath) %>
+        <% else %>
+          <%=  link_to t("users.login.link"), login_users_path(:return_path => request.fullpath) %>
+        <% end %>
+      </nav_item>
+
+      <nav_item style="float: left;"><%= link_to t("projects.index.header"), projects_path  %> | <%= link_to t("users.index.header"), users_path  %> | <%= link_to t("jobs.index.header"), jobs_path  %>
+        <% if @current_user.is_admin? || @current_user.is_operator? %>
+          | <%= link_to t("jobs.quarantined") + (@global_quarantined_job_count > 0 ? "(" + @global_quarantined_job_count.to_s + ")" : ""), jobs_path(:quarantined => true) %>
+        <% end %>
+      </nav_item>
+
+      <nav_item style="float:left;margin-left:50px;">
+        <%= form_tag jobs_path, :method => :get, :id => "job_list_search_nav" do %>
+          <%= text_field_tag :search, params[:search], placeholder: t("jobs.search") %>
+        <% end %>
+      </nav_item>
+    </nav>
+    <h1 class="page_header"><%= yield :title %></h1>
+  </header>
+  <div>
+    <%= yield %>
+  </div>
+</body>
+</html>

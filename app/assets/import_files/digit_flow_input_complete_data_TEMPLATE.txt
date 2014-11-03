@@ -1,0 +1,13 @@
+﻿catalog_id	name	ordinal_1_key	ordinal_1_value	ordinal_2_key	ordinal_2_value	ordinal_3_key	ordinal_3_value	chron_1_key	chron_1_value	chron_2_key	chron_2_value	chron_3_key	chron_3_value	guessed_page_count	note	comment	prio
+																	
+																	
+8257262	Busen	Serie	3	Vol	1	No.	1	År	1848	Mån	Juni	Dag	16	24			
+8257262	Busen	Serie	3	Vol	2	No.	2	År	1848	Mån	Juli	Dag	5	23	denna var jätteviktig därav kommentaren		1
+8257262	Busen	Serie	3	Vol	3	No.	1	År	1848	Mån	Aug	Dag	18	24			
+8257262	Busen	Serie	3	Vol	4	No.	4	År	1848	Mån	Sept	Dag	19	25	En råtta eller något annat hungrigt djur har ätit på ryggen.		
+8257262	Busen	Serie	3	Vol	5	No.	1	År	1848	Mån	Okt	Dag	2	23			
+8257262	Busen	Serie	3	Vol	6	No.	1	År	1848	Mån	Nov	Dag	12	20			
+8257262	Busen	Serie	3	Vol	7	No.	1	År	1848	Mån	Dec	Dag	11	22	Den här tunna foldern kan lätt ramla genom...		
+8257262	Busen	Serie	3	Vol	8	No.	1	År	1848	Säsong	Julen	Dag	24	21	En himla lunta som innehåller en massa lösblad. Iaktag försiktighet så att dessa inte ramlar ut och ned på det smutsiga golvet.		
+8257262	Busen	Serie	3	Vol	9	No.	1	År	1849	Mån	Jan	Dag	5	20	Det fattas några sidor i denna. Vad göra?		
+8257262	Busen	Serie	3	Vol	10	No.	1	År	1849	Säsong	Påsken	Dag	7	22	Påsknumret har en stor äggplansch som vecklas ut åt alla håll.		1

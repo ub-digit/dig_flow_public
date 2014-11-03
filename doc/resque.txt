@@ -1,0 +1,26 @@
+Resque behöver:
+
+Installation
+------------
+"apt-get install redis-server"
+
+Stäng av SSL i postgresql.conf
+-----------------------------
+ssl = false i postgresql.conf
+
+Starta bakgrundsjobbhanterare
+-----------------------------
+rake resque:work QUEUE='*'
+
+
+Övrig info::
+Starta webbgränssnitt
+-----------------------------
+rescue-web
+Adress: localhost:5678
+
+//
+VID PROBLEM ATT STARTA rescue-web, lägg till följande i 'which rescue-web':
+require 'forwardable'
+require 'yaml'
+//

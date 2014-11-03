@@ -1,0 +1,27 @@
+<% content_for :title do %>
+
+
+<ul class="breadcrumb">
+    <li><%= link_to t("projects.show.header"), projects_path %><span class="divider">/</span></li>
+    <li> <%= link_to @project.name, project_path(@project.id) %><span class="divider">/</span></li>
+    <li class="active"> <%= t("jobs.import.header") %>  </li>
+    </ul>
+<% end %>
+
+<div id="import_request">
+
+<%= form_for :job, :url => batch_fetch_jobs_path do |f| %>
+<%= f.hidden_field :project_id, :value => params[:job][:project_id] %>
+<%= f.label :import_file, t("jobs.upload_file") %>
+<%= f.file_field :import_file %><br/>
+<div>&nbsp;</div>
+<%= f.label :source_id, t("jobs.source_id")%>
+<% @sources.each do |source|%>
+<%= f.radio_button :source_id, source.id %>
+<%= f.label :source_id, t("jobs.sources.#{source.classname}"), :value => source.id, :class => "label-radio"  %>
+<% end %><br /><br />
+<%= submit_tag t("jobs.form.import") %>
+<% end %>
+
+</div>
+

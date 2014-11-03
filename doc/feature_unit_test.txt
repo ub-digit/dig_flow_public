@@ -1,0 +1,3 @@
+unittesta alla tabeller i digflow-applikationen
+
+Nästan allt klart. Lite plötslig branch-stängning p g a närvarobekymmer. :)
