@@ -1,3 +1,12 @@
+== dFlow 
+
+dFlow is a Management and Production Support System for Digitization production units.
+dFlow is created and maintained by Gothenburg University Library.
+
+== Installation
+
+
+
 == Welcome to Rails
 
 Rails is a web-application framework that includes everything needed to create
