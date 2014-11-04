@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131204104019) do
+ActiveRecord::Schema.define(:version => 20141104173626) do
 
   create_table "activities", :force => true do |t|
     t.integer  "entity_id"
@@ -70,9 +70,9 @@ ActiveRecord::Schema.define(:version => 20131204104019) do
     t.text     "xml"
     t.text     "mods"
     t.boolean  "quarantined",        :default => false
+    t.integer  "priority",           :default => 0
     t.text     "comment"
     t.text     "object_info"
-    t.integer  "priority",           :default => 0
     t.integer  "copyright"
     t.integer  "guessed_page_count", :default => 0
     t.integer  "page_count"
