@@ -92,6 +92,15 @@ require 'yaml'
   
   rake db:migrate RAILS_ENV=production
 
+== Create users
+
+Start rails console from project root
+  rails c production
+
+Create an admin and a guest user
+  User.create(:role_id => 1, :username => "Guest", :name => "guest")
+  User.create(:role_id => 3, :username => "admin", :password => "$1$c9c6b4ce$00e46beea797471c7a929694da5bf83d", :name => "Administrator")
+
 == Precompile assets
   
   RAILS_ENV=production rake assets:precompile
@@ -115,26 +124,31 @@ Add the following content, change the fields marked by asterisks
       </Directory>
   </VirtualHost>
 
-  Enable site: > sudo a2ensite dflow
-  Reload apache: > sudo service apache2 reload
+Enable site: 
+  sudo a2ensite dflow
+
+Reload apache: 
+  sudo service apache2 reload
 
 == Install Passenger
 
 Passenger is required for Apache to be able to interpret a rails application.
 
   gem install passenger
-  sudo passenger-install-apache2-module
+  sudo apt-get install libcurl4-openssl-dev
+  sudo apt-get install apache2-threaded-dev
+  passenger-install-apache2-module
 
 You might need to install some missing libraries at this point, follow instructions
 
 Create the following files with the corresponding information:
 /etc/apache2/mods-available/passenger.load
-  LoadModule passenger_module /home/jimmy/.rvm/gems/ruby-1.9.3-p550/gems/passenger-4.0.53/buildout/apache2/mod_passenger.so
+  LoadModule passenger_module /usr/local/rvm/gems/ruby-1.9.3-p550/gems/passenger-4.0.53/buildout/apache2/mod_passenger.so
 
 /etc/apache2/mods-available/passenger.conf
   <IfModule mod_passenger.c>
-    PassengerRoot /home/jimmy/.rvm/gems/ruby-1.9.3-p550/gems/passenger-4.0.53
-    PassengerDefaultRuby /home/jimmy/.rvm/gems/ruby-1.9.3-p550/wrappers/ruby
+    PassengerRoot /usr/local/rvm/gems/ruby-1.9.3-p550/gems/passenger-4.0.53
+    PassengerDefaultRuby /usr/local/rvm/gems/ruby-1.9.3-p550/wrappers/ruby
   </IfModule>
 
 Enable mod passenger:
