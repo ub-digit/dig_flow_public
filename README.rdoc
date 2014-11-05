@@ -20,7 +20,7 @@ Add user to group ‘rvm’:
   sudo adduser [username] rvm
 
 run the rvm script via home folder: 
-  source /home/<user>/.rvm/script/rvm
+  source /usr/local/rvm/scripts/rvm
 
 LOG OUT (because role memberships are processed upon login)
   exit
@@ -32,6 +32,10 @@ Install correct version for dFlow
 
 == Install PostgreSQL
   sudo apt-get install postgresql postgresql-contrib
+
+A Locales Error might require you to do the following:
+  Add LC_ALL="en_US.utf-8" to the end of /etc/environment
+  sudo pg_createcluster 9.3 main --start
 
 Create user:
   sudo su - postgres
@@ -102,6 +106,9 @@ Create an admin and a guest user
   User.create(:role_id => 1, :username => "Guest", :name => "guest")
   User.create(:role_id => 3, :username => "admin", :password => "$1$c9c6b4ce$00e46beea797471c7a929694da5bf83d", :name => "Administrator")
 
+Exit console
+  exit
+
 == Precompile assets
   
   RAILS_ENV=production rake assets:precompile
@@ -117,6 +124,7 @@ Add the following content, change the fields marked by asterisks
 
   <VirtualHost *:80>
       ServerName *dflow.mydomain.com*
+      PassengerRuby /usr/local/rvm/gems/ruby-1.9.3-p550/wrappers/ruby
       DocumentRoot /srv/rails/dig_flow_public/public
       <Directory /srv/rails/dig_flow_public/public>
          AllowOverride all
@@ -124,6 +132,9 @@ Add the following content, change the fields marked by asterisks
     Require all granted
       </Directory>
   </VirtualHost>
+
+Disable standard site:
+  sudo a2dissite 000-default
 
 Enable site: 
   sudo a2ensite dflow
