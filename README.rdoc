@@ -47,6 +47,109 @@ Add the following line to /etc/postgresql/<version>/main/pg_hba.conf (will allow
 Restart postgresql
   sudo service postgresql restart
 
+== Clone repository from GitHub
+
+  sudo apt-get install git
+  cd /srv/rails
+  git clone https://github.com/ub-digit/dig_flow_public.git
+
+== Create config file
+
+  1. Copy /config/initializers/config.rb.sample to /config/initializers/config.rb
+  2. Update config values to match your setup
+
+== Create database config file
+
+  1. Copy /config/database.yml.sample to /config/database.yml
+  2. Update config values to match your database setup
+
+== Install gems
+
+  cd <dflow_root>
+  sudo apt-get install libpq-dev
+  sudo apt-get install bundler
+  bundle install
+
+== Install Redis server
+
+  apt-get install redis-server
+
+Turn off SSL in postgresql.conf
+  ssl = false in postgresql.conf
+
+Start background manager
+  rake resque:work QUEUE='*'
+
+Start Web Interface (not necessary for other than troubleshooting)
+  rescue-web
+  Address: localhost:5678
+
+IF THERE IS A PROBLEM WITH STARTING rescue-web, add the following to 'which rescue-web':
+require 'forwardable'
+require 'yaml'
+
+== Setup Database
+  
+  sudo rake db:migrate RAILS_ENV=production
+
+== Precompile assets
+  
+  RAILS_ENV=production rake assets:precompile
+
+== Install Apache
+  
+  sudo apt-get install apache2
+
+== Publish web application through Apache
+  
+Create the file /etc/apache2/sites-available/dflow.conf
+Add the following content, change the fields marked by asterisks
+
+  <VirtualHost *:80>
+      ServerName *dflow.mydomain.com*
+      DocumentRoot /srv/rails/dig_flow_public/public
+      <Directory /srv/rails/dig_flow_public/public>
+         AllowOverride all
+         Options -MultiViews
+    Require all granted
+      </Directory>
+  </VirtualHost>
+
+  Enable site: > sudo a2ensite dflow
+  Reload apache: > sudo service apache2 reload
+
+== Install Passenger
+
+Passenger is required for Apache to be able to interpret a rails application.
+
+  gem install passenger
+  sudo passenger-install-apache2-module
+
+You might need to install some missing libraries at this point, follow instructions
+
+Create the following files with the corresponding information:
+/etc/apache2/mods-available/passenger.load
+  LoadModule passenger_module /home/jimmy/.rvm/gems/ruby-1.9.3-p550/gems/passenger-4.0.53/buildout/apache2/mod_passenger.so
+
+/etc/apache2/mods-available/passenger.conf
+  <IfModule mod_passenger.c>
+    PassengerRoot /home/jimmy/.rvm/gems/ruby-1.9.3-p550/gems/passenger-4.0.53
+    PassengerDefaultRuby /home/jimmy/.rvm/gems/ruby-1.9.3-p550/wrappers/ruby
+  </IfModule>
+
+Enable mod passenger:
+  sudo a2enmod passenger
+
+Reload apache:
+  sudo service apache2 reload
+
+== Error files
+Apache error file: 
+  /var/log/apache2/error.log
+Rails error file:  
+  /srv/rails/dig_flow_public/log/production.log
+
+
 
 == Welcome to Rails
 
