@@ -5,6 +5,47 @@ dFlow is created and maintained by Gothenburg University Library.
 
 == Installation
 
+== Update system
+  sudo apt-get update
+
+== Install RVM (Ruby Version Manager)
+RVM is a tool for managing several ruby versions on a single production/development unit.
+
+Install RVM stable with ruby:
+  sudo gpg --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3 
+  \curl -sSL https://get.rvm.io | sudo bash -s stable --ruby
+Follow any instructions for adding signatures that may appear.
+
+Add user to group ‘rvm’:
+  sudo adduser [username] rvm
+
+run the rvm script via home folder: 
+  source /home/<user>/.rvm/script/rvm
+
+LOG OUT (because role memberships are processed upon login)
+  exit
+LOG BACK IN
+
+Install correct version for dFlow
+  rvm install 1.9.3
+
+== Install PostgreSQL
+  sudo apt-get install postgresql postgresql-contrib
+
+Create user:
+  sudo su - postgres
+  createuser <username> --createdb --createrole --pwprompt
+
+Create database:
+  sudo su - postgres
+  createdb dflow
+
+Add the following line to /etc/postgresql/<version>/main/pg_hba.conf (will allow all localhost connections to access database):
+  ..
+  local    all     all    trust
+  ..
+Restart postgresql
+  sudo service postgresql restart
 
 
 == Welcome to Rails
