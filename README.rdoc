@@ -67,12 +67,12 @@ Restart postgresql
 
   cd <dflow_root>
   sudo apt-get install libpq-dev
-  sudo apt-get install bundler
+  gem install bundler
   bundle install
 
 == Install Redis server
 
-  apt-get install redis-server
+  sudo apt-get install redis-server
 
 Turn off SSL in postgresql.conf
   ssl = false in postgresql.conf
@@ -90,7 +90,7 @@ require 'yaml'
 
 == Setup Database
   
-  sudo rake db:migrate RAILS_ENV=production
+  rake db:migrate RAILS_ENV=production
 
 == Precompile assets
   
