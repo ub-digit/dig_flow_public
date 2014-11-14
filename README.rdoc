@@ -438,3 +438,8 @@ vendor
   External libraries that the application depends on. Also includes the plugins
   subdirectory. If the app has frozen rails, those gems also go here, under
   vendor/rails/. This directory is in the load path.
+
+= MISC
+== Output project job directories to file
+  File.open("jobdirs.txt", "w") { |f| Job.where(:project_id => 24).pluck(:id).each {|x| f.puts(sprintf("GUB%07d", x)) }}
+
